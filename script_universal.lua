@@ -1,51 +1,65 @@
---[[
-    UNIVERSAL HTTP WRAPPER - Works on ALL executors
-    Auto-detects: game:HttpGet, http_request, request, http.get, etc.
-]]
 
--- Universal HTTP GET function
+
+-- Safe HTTP function with nil check
 local function _HttpGet(url)
-    local funcs = {
-        function() return game:HttpGet(url) end,
-        function() return game:HttpGetAsync(url) end,
-        function() return http_request({Url=url, Method="GET"}).Body end,
-        function() return request({Url=url, Method="GET"}).Body end,
-        function() return http.get(url) end,
-        function() return syn.request({Url=url, Method="GET"}).Body end,
-        function() return fluxus.request({Url=url, Method="GET"}).Body end,
-        function() 
-            local resp = http_request({Url=url, Method="GET"})
-            return resp.Body or resp.body or resp
-        end,
-        function()
-            local resp = request({Url=url})
-            return resp.Body or resp.body or resp
-        end,
-    }
-    
-    for i, fn in ipairs(funcs) do
-        local success, result = pcall(fn)
-        if success and result and type(result) == "string" and result ~= "" then
-            return result
-        end
+    -- Check each function exists before calling
+    if game and game.HttpGet then
+        local ok, r = pcall(function() return game:HttpGet(url) end)
+        if ok and r and #r > 100 then return r end
     end
     
-    return nil, "No supported HTTP function found"
+    if game and game.HttpGetAsync then
+        local ok, r = pcall(function() return game:HttpGetAsync(url) end)
+        if ok and r and #r > 100 then return r end
+    end
+    
+    if http_request then
+        local ok, r = pcall(function() 
+            local resp = http_request({Url=url, Method="GET"})
+            return resp.Body or resp.body or resp
+        end)
+        if ok and r and type(r) == "string" and #r > 100 then return r end
+    end
+    
+    if request then
+        local ok, r = pcall(function()
+            local resp = request({Url=url, Method="GET"})
+            return resp.Body or resp.body or resp
+        end)
+        if ok and r and type(r) == "string" and #r > 100 then return r end
+    end
+    
+    if http and http.get then
+        local ok, r = pcall(function() return http.get(url) end)
+        if ok and r and #r > 100 then return r end
+    end
+    
+    if syn and syn.request then
+        local ok, r = pcall(function() return syn.request({Url=url, Method="GET"}).Body end)
+        if ok and r and #r > 100 then return r end
+    end
+    
+    if fluxus and fluxus.request then
+        local ok, r = pcall(function() return fluxus.request({Url=url, Method="GET"}).Body end)
+        if ok and r and #r > 100 then return r end
+    end
+    
+    return nil
 end
 
--- Override game:HttpGet if it doesn't exist or doesn't work
-local originalHttpGet = game.HttpGet
+-- Make it globally available
+HttpGet = _HttpGet
+
+-- Override game:HttpGet safely
+local _originalHttpGet = game.HttpGet
 game.HttpGet = function(self, url)
     local result = _HttpGet(url)
     if result then return result end
-    if originalHttpGet then
-        return originalHttpGet(self, url)
+    if _originalHttpGet then
+        return _originalHttpGet(self, url)
     end
-    error("HTTP request failed: " .. url)
+    error("HTTP request failed")
 end
-
--- Also create global shorthand
-HttpGet = _HttpGet
 
 --[[
     OBFUSCATED VERSION
