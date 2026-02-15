@@ -1,5 +1,5 @@
 -- UNIVERSAL LOADER
-local url = "https://raw.githubusercontent.com/dwisetyabudi15581/testing/main/script_universal.lua"
+local url = "https://raw.githubusercontent.com/dwisetyabudi15581/testing/main/script.lua"
 
 local function GetHttp()
     local funcs = {
@@ -20,5 +20,5 @@ local code = GetHttp()
 if code then
     loadstring(code)()
 else
-    warn("HTTP gagal! Coba copy-paste langsung script_universal.lua")
+    warn("HTTP gagal!")
 end
