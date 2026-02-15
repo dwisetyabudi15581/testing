@@ -1,139 +1,3 @@
-
-
--- Safe HTTP function with nil check
-local function _HttpGet(url)
-    -- Check each function exists before calling
-    if game and game.HttpGet then
-        local ok, r = pcall(function() return game:HttpGet(url) end)
-        if ok and r and #r > 100 then return r end
-    end
-    
-    if game and game.HttpGetAsync then
-        local ok, r = pcall(function() return game:HttpGetAsync(url) end)
-        if ok and r and #r > 100 then return r end
-    end
-    
-    if http_request then
-        local ok, r = pcall(function() 
-            local resp = http_request({Url=url, Method="GET"})
-            return resp.Body or resp.body or resp
-        end)
-        if ok and r and type(r) == "string" and #r > 100 then return r end
-    end
-    
-    if request then
-        local ok, r = pcall(function()
-            local resp = request({Url=url, Method="GET"})
-            return resp.Body or resp.body or resp
-        end)
-        if ok and r and type(r) == "string" and #r > 100 then return r end
-    end
-    
-    if http and http.get then
-        local ok, r = pcall(function() return http.get(url) end)
-        if ok and r and #r > 100 then return r end
-    end
-    
-    if syn and syn.request then
-        local ok, r = pcall(function() return syn.request({Url=url, Method="GET"}).Body end)
-        if ok and r and #r > 100 then return r end
-    end
-    
-    if fluxus and fluxus.request then
-        local ok, r = pcall(function() return fluxus.request({Url=url, Method="GET"}).Body end)
-        if ok and r and #r > 100 then return r end
-    end
-    
-    return nil
-end
-
--- Make it globally available
-HttpGet = _HttpGet
-
--- Override game:HttpGet safely
-local _originalHttpGet = game.HttpGet
-game.HttpGet = function(self, url)
-    local result = _HttpGet(url)
-    if result then return result end
-    if _originalHttpGet then
-        return _originalHttpGet(self, url)
-    end
-    error("HTTP request failed")
-end
-
---[[
-    OBFUSCATED VERSION
-    Original functionality preserved 100%
-    Obfuscation Level: HIGH
-]]
-
--- Anti-tamper check
-local _ILIIlI = function(_IlIlIl) local _IliIil = 0; for _ = 1, #_IlIlIl do _IliIil = _IliIil + _IlIlIl:byte(_) end; return _IliIil end
-local _IlIlIi = string.char
-local _IliIli = table.concat
-local _IlIlii = function(_IlIlII) local _IliIIl = {} for _ = 1, #_IlIlII do _IliIIl[_] = _IlIlIi(_IlIlII[_]) end return _IliIli(_IliIIl) end
-
--- String decoder
-local _IlllIl = function(_IlllIi) local _IlIlli = {} local _IllliI = 1 for _ = 1, #_IlllIi, 3 do _IlIlli[_IllliI] = _IlIlIi(tonumber(_IlllIi:sub(_, _+2), 8)) _IllliI = _IllliI + 1 end return _IliIli(_IlIlli) end
-
--- Encoded strings table
-local _STR = {}
-_STR[1] = _IlllIl("106111111115099104095076111099097116105111110115046106115111110")
-_STR[2] = _IlllIl("115104097107101")
-_STR[3] = _IlllIl("114101101108")
-_STR[4] = _IlllIl("115104097107101117105")
-_STR[5] = _IlllIl("099097115116065115121110099")
-_STR[6] = _IlllIl("101118101110116115")
-_STR[7] = _IlllIl("112117114099104097115101")
-_STR[8] = _IlllIl("112097099107097103101115047078101116047082069047")
-_STR[9] = _IlllIl("083101108108065108108")
-_STR[10] = _IlllIl("115101108108097108108")
-_STR[11] = _IlllIl("115101108108")
-_STR[12] = _IlllIl("082101101108047070105110105115104")
-_STR[13] = _IlllIl("114111100")
-_STR[14] = _IlllIl("067036")
-_STR[15] = _IlllIl("067097115104")
-_STR[16] = _IlllIl("108101097100101114115116097116115")
-_STR[17] = _IlllIl("072116116112083101114118105099101")
-_STR[18] = _IlllIl("085115101114073110112117116083101114118105099101")
-_STR[19] = _IlllIl("082117110083101114118105099101")
-_STR[20] = _IlllIl("068101098114105115")
-_STR[21] = _IlllIl("080108097121101114115")
-_STR[22] = _IlllIl("086105114116117097108073110112117116077097110097103101114")
-_STR[23] = _IlllIl("067111114101071117105")
-_STR[24] = _IlllIl("082101112108105099097116101100083116111114097103101")
-_STR[25] = _IlllIl("086105114116117097108085115101114")
-_STR[26] = _IlllIl("076111097108080108097121101114")
-_STR[27] = _IlllIl("076105103104116105110103")
-_STR[28] = _IlllIl("084101108101112111114116083101114118105099101")
-_STR[29] = _IlllIl("067117114114101110116067097109101114097")
-_STR[30] = _IlllIl("086105101119112111114116083105122101")
-_STR[31] = _IlllIl("073115077111098105108101")
-_STR[32] = _IlllIl("070108121086101108111099105116121")
-_STR[33] = _IlllIl("070108121071121114111")
-_STR[34] = _IlllIl("046110097109101")
-_STR[35] = _IlllIl("104116116112115058047047103105116104117098046099111109047100097119105100045115099114105112116115047070108117101110116047114101108101097115101115047108097116101115116047100111119110108111097100047109097105110046108117097")
-_STR[36] = _IlllIl("104116116112115058047047114097119046103105116104117098117115101114099111110116101110116046099111109047100097119105100045115099114105112116115047070108117101110116047109097115116101114047065100100111110115047083097118101077097110097103101114046108117097")
-_STR[37] = _IlllIl("104116116112115058047047114097119046103105116104117098117115101114099111110116101110116046099111109047100097119105100045115099114105112116115047070108117101110116047109097115116101114047065100100111110115047073110116101114102097099101077097110097103101114046108117097")
-_STR[38] = _IlllIl("084069083084073078071032118101114115105032049")
-_STR[39] = _IlllIl("070073083067072")
-_STR[40] = _IlllIl("068105115112108097121078097109101")
-_STR[41] = _IlllIl("110097109101")
-
--- Random seed for variable names
-local _RAND_SEED = 89234
-math.randomseed(_RAND_SEED)
-
--- Generate random identifier
-local _genId = function()
-    local _chars = "IlLiI1"
-    local _result = ""
-    for _ = 1, math.random(8, 16) do
-        _result = _result .. string.sub(_chars, math.random(1, #_chars), math.random(1, #_chars))
-    end
-    return _result
-end
-
 -- ⚙️ PENGATURAN & VARIABEL
 _G.StopAll = false
 _G.AutoFish = false
@@ -191,57 +55,57 @@ _G.PotionTimer = 0
 -- Status Internal
 _G.ProcessingTotem = false
 
--- Nama File (encoded)
-local _FileName = _STR[1]
+-- Nama File
+local FileName = "Fisch_Locations.json"
 
 -- Variabel state (bukan _G) - memindahkan currentSpot ke _G
-local _currentFlyVelocity = Vector3.new(0, 0, 0)
+local currentFlyVelocity = Vector3.new(0, 0, 0)
 _G.currentSpot = nil
-local _keysDown = {}
-local _lastSpacePress = 0
+local keysDown = {}
+local lastSpacePress = 0
 
 -- ============================================
 -- SERVICES MODULE - Mengambil Services dari Aslinya
 -- ============================================
 
-local _Services = {}
+local Services = {}
 
-_Services.HttpService = game:GetService(_STR[17])
-_Services.UserInputService = game:GetService(_STR[18])
-_Services.RunService = game:GetService(_STR[19])
-_Services.Debris = game:GetService(_STR[20])
-_Services.Players = game:GetService(_STR[21])
-_Services.VirtualInputManager = game:GetService(_STR[22])
-_Services.CoreGui = game:GetService(_STR[23])
-_Services.ReplicatedStorage = game:GetService(_STR[24])
-_Services.VirtualUser = game:GetService(_STR[25])
-_Services.LocalPlayer = _Services.Players.LocalPlayer
-_Services.Lighting = game:GetService(_STR[27])
-_Services.TeleportService = game:GetService(_STR[28])
+Services.HttpService = game:GetService("HttpService")
+Services.UserInputService = game:GetService("UserInputService")
+Services.RunService = game:GetService("RunService")
+Services.Debris = game:GetService("Debris")
+Services.Players = game:GetService("Players")
+Services.VirtualInputManager = game:GetService("VirtualInputManager")
+Services.CoreGui = game:GetService("CoreGui")
+Services.ReplicatedStorage = game:GetService("ReplicatedStorage")
+Services.VirtualUser = game:GetService("VirtualUser")
+Services.LocalPlayer = Services.Players.LocalPlayer
+Services.Lighting = game:GetService("Lighting")
+Services.TeleportService = game:GetService("TeleportService")
 
 -- Ukuran Layar & Deteksi Platform
-_Services.ScreenSize = workspace.CurrentCamera.ViewportSize
-_Services.IsMobile = table.find({Enum.Platform.Android, Enum.Platform.IOS}, _Services.UserInputService:GetPlatform())
+Services.ScreenSize = workspace.CurrentCamera.ViewportSize
+Services.IsMobile = table.find({Enum.Platform.Android, Enum.Platform.IOS}, Services.UserInputService:GetPlatform())
 
 -- Kalkulasi Ukuran Window
-if _Services.IsMobile or _Services.ScreenSize.X < 700 then
-    local _targetWidth = math.min(_Services.ScreenSize.X * 0.85, 600)
-    local _targetHeight = math.min(_Services.ScreenSize.Y * 0.70, 400)
-    _Services.WindowSize = UDim2.fromOffset(_targetWidth, _targetHeight)
-    _Services.TabsWidth = 120
+if Services.IsMobile or Services.ScreenSize.X < 700 then
+    local targetWidth = math.min(Services.ScreenSize.X * 0.85, 600)
+    local targetHeight = math.min(Services.ScreenSize.Y * 0.70, 400)
+    Services.WindowSize = UDim2.fromOffset(targetWidth, targetHeight)
+    Services.TabsWidth = 120
 else
-    _Services.WindowSize = UDim2.fromOffset(580, 460)
-    _Services.TabsWidth = 160
+    Services.WindowSize = UDim2.fromOffset(580, 460)
+    Services.TabsWidth = 160
 end
 
 -- ============================================
 -- DATA MODULE - Data Locations, Rods, Totems, Potions (Aslinya)
 -- ============================================
 
-local _Data = {}
+local Data = {}
 
 -- 📍 TABEL DATA
-_Data.DefaultLocations = {
+Data.DefaultLocations = {
     ["Moosewood (Spawn)"] = {x=380, y=135, z=220},
     ["Roslit Bay"] = {x=-1485, y=132, z=720},
     ["Terrapin Island"] = {x=-16, y=135, z=1540},
@@ -259,7 +123,7 @@ _Data.DefaultLocations = {
     ["Coral Bastion"] = {x=2523,y=-1097,z=858}
 }
 
-_Data.RodList = {
+Data.RodList = {
     {Name = "Training Rod", Price = 300}, {Name = "Plastic Rod", Price = 750},
     {Name = "Carbon Rod", Price = 2000}, {Name = "Stone Rod", Price = 2000},
     {Name = "Long Rod", Price = 3000}, {Name = "Fast Rod", Price = 4000},
@@ -299,7 +163,7 @@ _Data.RodList = {
     {Name = "Original No-Life Rod", Price = 1},
 }
 
-_Data.TotemData = {
+Data.TotemData = {
     {Name = "Tempest Totem", Price = 2000},
     {Name = "Windset Totem", Price = 2000},
     {Name = "Sundial Totem", Price = 2000},
@@ -313,10 +177,10 @@ _Data.TotemData = {
     {Name = "Aurora Totem", Price = 500000}
 }
 
-_Data.TotemList = {}
-for _, _v in ipairs(_Data.TotemData) do table.insert(_Data.TotemList, _v.Name) end
+Data.TotemList = {}
+for _, v in ipairs(Data.TotemData) do table.insert(Data.TotemList, v.Name) end
 
-_Data.PotionList = {
+Data.PotionList = {
     "Luck Potion", "Lure Speed Potion", "All Season Potion", 
     "Glitched Potion", "Abyssal Tonic", "Ghost Elixir", 
     "Fortune Potion", "Hasty Potion", "Sea Traveler Note"
@@ -326,219 +190,219 @@ _Data.PotionList = {
 -- UTILS MODULE - Fungsi Pembantu
 -- ============================================
 
-local _Utils = {}
+local Utils = {}
 
 -- Operasi File
-function _Utils.LoadCustomLocations()
-    if isfile and isfile(_FileName) then
-        local _success, _result = pcall(function() return _Services.HttpService:JSONDecode(readfile(_FileName)) end)
-        if _success then return _result end
+function Utils.LoadCustomLocations()
+    if isfile and isfile(FileName) then
+        local success, result = pcall(function() return Services.HttpService:JSONDecode(readfile(FileName)) end)
+        if success then return result end
     end
     return {}
 end
 
-function _Utils.SaveCustomLocations(_data)
-    if writefile then writefile(_FileName, _Services.HttpService:JSONEncode(_data)) end
+function Utils.SaveCustomLocations(data)
+    if writefile then writefile(FileName, Services.HttpService:JSONEncode(data)) end
 end
 
 -- Item & Uang
-function _Utils.hasItem(_itemName)
-    return (_Services.LocalPlayer.Backpack:FindFirstChild(_itemName) or (_Services.LocalPlayer.Character and _Services.LocalPlayer.Character:FindFirstChild(_itemName))) ~= nil
+function Utils.hasItem(itemName)
+    return (Services.LocalPlayer.Backpack:FindFirstChild(itemName) or (Services.LocalPlayer.Character and Services.LocalPlayer.Character:FindFirstChild(itemName))) ~= nil
 end
 
-function _Utils.getMoney()
-    local _ls = _Services.LocalPlayer:FindFirstChild(_STR[16])
-    local _coin = _ls and _ls:FindFirstChild(_STR[14]) or _ls:FindFirstChild(_STR[15])
-    return _coin and _coin.Value or 0
+function Utils.getMoney()
+    local ls = Services.LocalPlayer:FindFirstChild("leaderstats")
+    local coin = ls and ls:FindFirstChild("C$") or ls:FindFirstChild("Cash")
+    return coin and coin.Value or 0
 end
 
 -- Fungsi Remote
-function _Utils.FindSellAllRemote()
-    local _events = _Services.ReplicatedStorage:FindFirstChild(_STR[6])
-    if _events then
-        return _events:FindFirstChild(_STR[9]) or _events:FindFirstChild(_STR[10])
+function Utils.FindSellAllRemote()
+    local events = Services.ReplicatedStorage:FindFirstChild("events")
+    if events then
+        return events:FindFirstChild("SellAll") or events:FindFirstChild("sellall")
     end
     return nil
 end
 
-function _Utils.FindSellHandRemote()
-    local _targetPath = _STR[8]
-    local _parts = string.split(_targetPath, "/")
-    local _current = _Services.ReplicatedStorage
-    for _, _part in ipairs(_parts) do
-        if _current:FindFirstChild(_part) then
-             _current = _current[_part]
+function Utils.FindSellHandRemote()
+    local targetPath = "packages/Net/RF/Merchant/Sell"
+    local parts = string.split(targetPath, "/")
+    local current = Services.ReplicatedStorage
+    for _, part in ipairs(parts) do
+        if current:FindFirstChild(part) then
+             current = current[part]
         else
             return nil
         end
     end
-    if _current and _current:IsA("RemoteFunction") then
-        return _current
+    if current and current:IsA("RemoteFunction") then
+        return current
     end
     return nil
 end
 
-function _Utils.GetPurchaseRemote()
-    local _events = _Services.ReplicatedStorage:FindFirstChild(_STR[6])
-    if _events then
-        return _events:FindFirstChild(_STR[7])
+function Utils.GetPurchaseRemote()
+    local events = Services.ReplicatedStorage:FindFirstChild("events")
+    if events then
+        return events:FindFirstChild("purchase")
     end
     return nil
 end
 
-function _Utils.FindRemote(_name)
-    local _target = _Services.ReplicatedStorage:FindFirstChild(_STR[34]:sub(2))
-    if _target and _target:FindFirstChild("Net") then
-        local _re = _target.Net:FindFirstChild("RE/".._name)
-        if _re then return _re end
+function Utils.FindRemote(name)
+    local target = Services.ReplicatedStorage:FindFirstChild("packages")
+    if target and target:FindFirstChild("Net") then
+        local re = target.Net:FindFirstChild("RE/"..name)
+        if re then return re end
     end
     return nil
 end
 
 -- Pembantu Auto Fish
-function _Utils.CleanStack()
-    local _pg = _Services.LocalPlayer.PlayerGui
-    if _pg:FindFirstChild(_STR[3]) then _pg[_STR[3]]:Destroy() end
-    if _pg:FindFirstChild(_STR[4]) then _pg[_STR[4]]:Destroy() end
+function Utils.CleanStack()
+    local pg = Services.LocalPlayer.PlayerGui
+    if pg:FindFirstChild("reel") then pg.reel:Destroy() end
+    if pg:FindFirstChild("shakeui") then pg.shakeui:Destroy() end
 end
 
-function _Utils.ForceEquipRod()
-    local _char = _Services.LocalPlayer.Character
-    if not _char then return nil end
-    local _tool = _char:FindFirstChildWhichIsA("Tool")
-    if _tool and _tool.Name:lower():find(_STR[13]) then return _tool end
-    local _backpack = _Services.LocalPlayer.Backpack
-    local _rod = nil
-    for _, _v in pairs(_backpack:GetChildren()) do
-        if _v:IsA("Tool") and _v.Name:lower():find(_STR[13]) then _rod = _v; break end
+function Utils.ForceEquipRod()
+    local char = Services.LocalPlayer.Character
+    if not char then return nil end
+    local tool = char:FindFirstChildWhichIsA("Tool")
+    if tool and tool.Name:lower():find("rod") then return tool end
+    local backpack = Services.LocalPlayer.Backpack
+    local rod = nil
+    for _, v in pairs(backpack:GetChildren()) do
+        if v:IsA("Tool") and v.Name:lower():find("rod") then rod = v; break end
     end
-    if _rod then
-        _char.Humanoid:EquipTool(_rod); task.wait(0.2); return _char:FindFirstChildWhichIsA("Tool")
+    if rod then
+        char.Humanoid:EquipTool(rod); task.wait(0.2); return char:FindFirstChildWhichIsA("Tool")
     else
-        _Services.VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.T, false, game); task.wait(0.3); return _char:FindFirstChildWhichIsA("Tool")
+        Services.VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.T, false, game); task.wait(0.3); return char:FindFirstChildWhichIsA("Tool")
     end
 end
 
-function _Utils.IsUIActive()
-    local _pg = _Services.LocalPlayer.PlayerGui
-    local _hasShake = _pg:FindFirstChild(_STR[4]) and _pg[_STR[4]].Enabled
-    local _hasReel = _pg:FindFirstChild(_STR[3]) and _pg[_STR[3]].Enabled
-    return _hasShake or _hasReel
+function Utils.IsUIActive()
+    local pg = Services.LocalPlayer.PlayerGui
+    local hasShake = pg:FindFirstChild("shakeui") and pg.shakeui.Enabled
+    local hasReel = pg:FindFirstChild("reel") and pg.reel.Enabled
+    return hasShake or hasReel
 end
 
 -- Deteksi Shake (dari script asli)
-function _Utils.FastShake(_obj)
+function Utils.FastShake(obj)
     if not _G.AutoShake then return end
 
-    if _obj.Name == _STR[2] and _obj:IsA("RemoteEvent") then
-        local _parentUI = _obj.Parent
-        if _parentUI and _parentUI:IsA("GuiObject") then
+    if obj.Name == "shake" and obj:IsA("RemoteEvent") then
+        local parentUI = obj.Parent
+        if parentUI and parentUI:IsA("GuiObject") then
             if _G.HideShakeUI then
-                _parentUI.Visible = false
+                parentUI.Visible = false
             else
-                _parentUI.Visible = true
+                parentUI.Visible = true
             end
         end
 
-        _obj:FireServer()
+        obj:FireServer()
         task.delay(0.1, function()
-            _obj:FireServer()
+            obj:FireServer()
         end)
     end
 end
 
 -- Fungsi Format
-function _Utils.FormatTime(_seconds)
-    local _hours = math.floor(_seconds / 3600)
-    local _minutes = math.floor((_seconds % 3600) / 60)
-    local _secs = math.floor(_seconds % 60)
-    return string.format("%02d:%02d:%02d", _hours, _minutes, _secs)
+function Utils.FormatTime(seconds)
+    local hours = math.floor(seconds / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local secs = math.floor(seconds % 60)
+    return string.format("%02d:%02d:%02d", hours, minutes, secs)
 end
 
-function _Utils.FormatGameTime(_clockTime)
-    local _hours = math.floor(_clockTime)
-    local _minutes = math.floor((_clockTime - _hours) * 60)
-    return string.format("%02d:%02d", _hours, _minutes)
+function Utils.FormatGameTime(clockTime)
+    local hours = math.floor(clockTime)
+    local minutes = math.floor((clockTime - hours) * 60)
+    return string.format("%02d:%02d", hours, minutes)
 end
 
 -- ============================================
 -- AUTO FISH MODULE - Sistem Mancing Otomatis (Aslinya)
 -- ============================================
 
-local _AutoFish = {}
+local AutoFish = {}
 
-function _AutoFish.Start()
-    local _finishRemote = _Utils.FindRemote(_STR[12])
+function AutoFish.Start()
+    local finishRemote = Utils.FindRemote("Reel/Finish")
     
     task.spawn(function()
         while true do
             task.wait(0.1)
             
             if not _G.StopAll and _G.AutoFish then
-                local _char = _Services.LocalPlayer.Character
-                if not _char then continue end
+                local char = Services.LocalPlayer.Character
+                if not char then continue end
                 
                 -- Cek alat
-                local _currentTool = _char:FindFirstChildWhichIsA("Tool")
-                if _currentTool and _currentTool.Name:lower():find(_STR[13]) then
-                    if not _Utils.IsUIActive() then
-                        _char.Humanoid:UnequipTools(); task.wait(0.1)
+                local currentTool = char:FindFirstChildWhichIsA("Tool")
+                if currentTool and currentTool.Name:lower():find("rod") then
+                    if not Utils.IsUIActive() then
+                        char.Humanoid:UnequipTools(); task.wait(0.1)
                     end
                 end
                 
-                local _rod = _Utils.ForceEquipRod()
-                if _rod and _rod:FindFirstChild(_STR[6]) then
-                    local _castRemote = _rod[_STR[6]]:FindFirstChild(_STR[5])
-                    if _castRemote then
+                local rod = Utils.ForceEquipRod()
+                if rod and rod:FindFirstChild("events") then
+                    local castRemote = rod.events:FindFirstChild("castAsync")
+                    if castRemote then
                         -- 1. Lempar kail
-                        local _castSuccess = pcall(function() _castRemote:InvokeServer(100, 1, false) end)
-                        if not _castSuccess then warn("Cast gagal, mencoba lagi..."); continue end
+                        local castSuccess = pcall(function() castRemote:InvokeServer(100, 1, false) end)
+                        if not castSuccess then warn("Cast gagal, mencoba lagi..."); continue end
                         
-                        local _fishBited = false
-                        local _startTime = tick()
-                        local _lastActiveTime = tick()
+                        local fishBited = false
+                        local startTime = tick()
+                        local lastActiveTime = tick()
                         
-                        local _maxTotalWait = 30
-                        local _noActivityTimeout = 3.5
+                        local maxTotalWait = 30
+                        local noActivityTimeout = 3.5
                         
                         while _G.AutoFish and not _G.StopAll do
-                            local _currentTime = tick()
+                            local currentTime = tick()
                             
-                            if _Utils.IsUIActive() then
-                                _lastActiveTime = _currentTime
+                            if Utils.IsUIActive() then
+                                lastActiveTime = currentTime
                             end
                             
-                            if _char.Humanoid.MoveDirection.Magnitude > 0 then
-                                _lastActiveTime = _currentTime
+                            if char.Humanoid.MoveDirection.Magnitude > 0 then
+                                lastActiveTime = currentTime
                             end
 
-                            if _Services.LocalPlayer.PlayerGui:FindFirstChild(_STR[3]) then 
-                                _fishBited = true 
+                            if Services.LocalPlayer.PlayerGui:FindFirstChild("reel") then 
+                                fishBited = true 
                                 break 
                             end
                             
                             -- Kondisi selesai: kail lepas dari tangan
-                            if not _char:FindFirstChild(_rod.Name) then break end
+                            if not char:FindFirstChild(rod.Name) then break end
                             
                             -- Sistem anti bug (Smart Timeout)
-                            if _currentTime - _lastActiveTime > _noActivityTimeout then break end
-                            if _currentTime - _startTime > _maxTotalWait then break end
+                            if currentTime - lastActiveTime > noActivityTimeout then break end
+                            if currentTime - startTime > maxTotalWait then break end
                             
                             task.wait(0.05)
                         end
                         
                         -- 2. Jika ikan sudah datang, tarik
-                        if _fishBited then
+                        if fishBited then
                             task.wait(_G.ReelDelay)
-                            if _finishRemote then
-                                pcall(function() _finishRemote:FireServer({ ["e"] = 100, ["p"] = _G.AlwaysPerfect, ["l"] = {} }) end)
+                            if finishRemote then
+                                pcall(function() finishRemote:FireServer({ ["e"] = 100, ["p"] = _G.AlwaysPerfect, ["l"] = {} }) end)
                                 _G.AddLog("🎣 Ikan Tertangkap!", Color3.fromRGB(0, 255, 255))
                             end
                         end
                         
                         task.wait(_G.CastDelay)
-                        _Utils.CleanStack()
-                        if _char:FindFirstChild("Humanoid") then _char.Humanoid:UnequipTools() end
+                        Utils.CleanStack()
+                        if char:FindFirstChild("Humanoid") then char.Humanoid:UnequipTools() end
                     end
                 end
             end
@@ -546,10 +410,10 @@ function _AutoFish.Start()
     end)
 end
 
-function _AutoFish.SetupShakeDetection()
-    _Services.LocalPlayer.PlayerGui.DescendantAdded:Connect(_Utils.FastShake)
-    for _, _v in pairs(_Services.LocalPlayer.PlayerGui:GetDescendants()) do
-        _Utils.FastShake(_v)
+function AutoFish.SetupShakeDetection()
+    Services.LocalPlayer.PlayerGui.DescendantAdded:Connect(Utils.FastShake)
+    for _, v in pairs(Services.LocalPlayer.PlayerGui:GetDescendants()) do
+        Utils.FastShake(v)
     end
 end
 
@@ -557,37 +421,37 @@ end
 -- AUTO POTION MODULE - Timer Auto Potion (Aslinya)
 -- ============================================
 
-local _AutoPotion = {}
+local AutoPotion = {}
 
-function _AutoPotion.Start()
+function AutoPotion.Start()
     task.spawn(function()
         while true do
             task.wait(1)
             
             if _G.AutoPotion and not _G.StopAll and _G.PotionRepeatCount > 0 then
                 if _G.PotionTimer <= 0 then
-                    local _potionName = _G.SelectedPotion
+                    local potionName = _G.SelectedPotion
                     
                     -- Cek apakah ada di inventaris
-                    local _hasItem = (_Services.LocalPlayer.Backpack:FindFirstChild(_potionName) or 
-                                    (_Services.LocalPlayer.Character and _Services.LocalPlayer.Character:FindFirstChild(_potionName))) ~= nil
+                    local hasItem = (Services.LocalPlayer.Backpack:FindFirstChild(potionName) or 
+                                    (Services.LocalPlayer.Character and Services.LocalPlayer.Character:FindFirstChild(potionName))) ~= nil
                     
-                    if _hasItem then
+                    if hasItem then
                         -- 1. Hentikan mancing (Hard Stop)
-                        local _wasFishing = _G.AutoFish
-                        if _wasFishing then
+                        local wasFishing = _G.AutoFish
+                        if wasFishing then
                             _G.AutoFish = false
                             task.wait(2)
                         end
 
-                        local _char = _Services.LocalPlayer.Character
-                        local _hum = _char and _char:FindFirstChild("Humanoid")
+                        local char = Services.LocalPlayer.Character
+                        local hum = char and char:FindFirstChild("Humanoid")
                         
-                        if _char and _hum and _hum.Health > 0 then
+                        if char and hum and hum.Health > 0 then
                             -- 2. Kosongkan tangan
-                            for _ = 1, 5 do
-                                if _char:FindFirstChildWhichIsA("Tool") then
-                                    _hum:UnequipTools()
+                            for i = 1, 5 do
+                                if char:FindFirstChildWhichIsA("Tool") then
+                                    hum:UnequipTools()
                                     task.wait(0.2)
                                 else
                                     break
@@ -595,42 +459,42 @@ function _AutoPotion.Start()
                             end
                             
                             -- 3. Coba pegang dan minum ramuan
-                            local _potionTool = _Services.LocalPlayer.Backpack:FindFirstChild(_potionName) or _char:FindFirstChild(_potionName)
+                            local potionTool = Services.LocalPlayer.Backpack:FindFirstChild(potionName) or char:FindFirstChild(potionName)
                             
-                            if _potionTool then
-                                _hum:EquipTool(_potionTool)
+                            if potionTool then
+                                hum:EquipTool(potionTool)
                                 task.wait(0.8)
                                 
-                                local _heldItem = _char:FindFirstChildWhichIsA("Tool")
-                                if _heldItem and _heldItem.Name == _potionName then
+                                local heldItem = char:FindFirstChildWhichIsA("Tool")
+                                if heldItem and heldItem.Name == potionName then
                                     -- Klik untuk minum
-                                    _Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                                    Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
                                     task.wait(0.2)
-                                    _Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                                    Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
                                     
                                     task.wait(2.5)
-                                    _hum:UnequipTools()
+                                    hum:UnequipTools()
                                     
                                     _G.PotionRepeatCount = _G.PotionRepeatCount - 1
                                     _G.PotionTimer = _G.PotionDelayMinutes * 60
                                 else
-                                    _hum:UnequipTools()
+                                    hum:UnequipTools()
                                 end
                             end
                         end
                         
                         -- 4. Kembali mancing
-                        if _wasFishing then
+                        if wasFishing then
                             task.wait(1)
                             _G.AutoFish = true
                             
-                            local _rod = _Services.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-                            if not _rod then 
-                                for _, _v in pairs(_Services.LocalPlayer.Backpack:GetChildren()) do
-                                    if _v:IsA("Tool") and _v.Name:find("Rod") then _rod = _v; break end
+                            local rod = Services.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+                            if not rod then 
+                                for _, v in pairs(Services.LocalPlayer.Backpack:GetChildren()) do
+                                    if v:IsA("Tool") and v.Name:find("Rod") then rod = v; break end
                                 end
                             end
-                            if _rod then _hum:EquipTool(_rod) end
+                            if rod then hum:EquipTool(rod) end
                         end
                     else
                         task.wait(5)
@@ -647,15 +511,15 @@ end
 -- AUTO SELL MODULE - Auto Sell All (Aslinya)
 -- ============================================
 
-local _AutoSell = {}
+local AutoSell = {}
 
-function _AutoSell.Start()
+function AutoSell.Start()
     task.spawn(function()
         while true do
             if _G.AutoSellAll and not _G.StopAll then
-                local _remote = _Utils.FindSellAllRemote()
-                if _remote then
-                    pcall(function() _remote:InvokeServer() end)
+                local remote = Utils.FindSellAllRemote()
+                if remote then
+                    pcall(function() remote:InvokeServer() end)
                 end
                 task.wait(_G.SellAllInterval or 5)
             else
@@ -669,89 +533,89 @@ end
 -- AUTO TOTEM MODULE - Smart Auto Totem (Aslinya)
 -- ============================================
 
-local _AutoTotem = {}
+local AutoTotem = {}
 
-function _AutoTotem.Start()
-    local _currentPeriodStatus = nil 
-    local _hasUsedTotem = false 
-    local _hasFixedEclipse = false 
-    local _lastGameTime = -1       
-    local _lastRealTime = tick()
+function AutoTotem.Start()
+    local currentPeriodStatus = nil 
+    local hasUsedTotem = false 
+    local hasFixedEclipse = false 
+    local lastGameTime = -1       
+    local lastRealTime = tick()
     
     -- Variabel anti konflik
     _G.ProcessingTotem = false
 
-    local function _UseTotemItem(_name, _reason)
-        if not _Utils.hasItem(_name) then return false end
+    local function UseTotemItem(name, reason)
+        if not Utils.hasItem(name) then return false end
         
-        local _char = _Services.LocalPlayer.Character
-        local _hum = _char and _char:FindFirstChild("Humanoid")
-        if not _hum or _hum.Health <= 0 then return false end
+        local char = Services.LocalPlayer.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+        if not hum or hum.Health <= 0 then return false end
 
         -- 1. Nyatakan status sedang bekerja
         _G.ProcessingTotem = true
         
         -- 2. Perintahkan berhenti mancing secara paksa
-        local _wasFishing = _G.AutoFish
-        if _wasFishing then
+        local wasFishing = _G.AutoFish
+        if wasFishing then
             _G.AutoFish = false
             
             -- Bersihkan kail dari tangan
-            local _attempts = 0
+            local attempts = 0
             repeat
-                _hum:UnequipTools()
+                hum:UnequipTools()
                 task.wait(0.2)
-                _attempts = _attempts + 1
-            until not _char:FindFirstChildWhichIsA("Tool") or _attempts > 10
+                attempts = attempts + 1
+            until not char:FindFirstChildWhichIsA("Tool") or attempts > 10
             
             task.wait(0.5)
         end
 
-        local _success = false
-        local _totem = _Services.LocalPlayer.Backpack:FindFirstChild(_name)
-        if not _totem then _totem = _char:FindFirstChild(_name) end
+        local success = false
+        local totem = Services.LocalPlayer.Backpack:FindFirstChild(name)
+        if not totem then totem = char:FindFirstChild(name) end
 
-        if _totem then
+        if totem then
             -- 3. Coba pegang Totem
-            _hum:EquipTool(_totem)
+            hum:EquipTool(totem)
             task.wait(1) 
             
             -- 4. Cek detik terakhir apakah benar-benar memegang Totem
-            local _heldItem = _char:FindFirstChildWhichIsA("Tool")
+            local heldItem = char:FindFirstChildWhichIsA("Tool")
             
-            if _heldItem and _heldItem.Name == _name then
+            if heldItem and heldItem.Name == name then
                 -- Sudah pegang yang benar -> tekan untuk digunakan
-                _Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
                 task.wait(0.2)
-                _Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                Services.VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
                 
                 task.wait(2.5)
-                _hum:UnequipTools()
-                _success = true
+                hum:UnequipTools()
+                success = true
             else
                 -- Pegang yang salah
-                _success = false
+                success = false
             end
         end
 
         -- 5. Kembalikan status, dan kembali mancing
         _G.ProcessingTotem = false
         
-        if _wasFishing then
+        if wasFishing then
             task.wait(0.5)
             _G.AutoFish = true
             
             -- Bantu pegang kail kembali
-            local _rod = _Services.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-            if not _rod then 
-                for _, _v in pairs(_Services.LocalPlayer.Backpack:GetChildren()) do
-                    if _v:IsA("Tool") and _v.Name:find("Rod") then _rod = _v; break end
+            local rod = Services.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+            if not rod then 
+                for _, v in pairs(Services.LocalPlayer.Backpack:GetChildren()) do
+                    if v:IsA("Tool") and v.Name:find("Rod") then rod = v; break end
                 end
             end
-            if _rod then _hum:EquipTool(_rod) end
+            if rod then hum:EquipTool(rod) end
         end
         
-        return _success
+        return success
     end
 
     task.spawn(function()
@@ -759,54 +623,54 @@ function _AutoTotem.Start()
             task.wait(1)
             
             if _G.AutoTotem and not _G.StopAll then
-                local _Lighting = game:GetService("Lighting")
-                local _currentTime = _Lighting.ClockTime
+                local Lighting = game:GetService("Lighting")
+                local currentTime = Lighting.ClockTime
                 
                 -- Cek waktu macet (Eclipse Fix)
-                if _currentTime ~= _lastGameTime then
-                    _lastGameTime = _currentTime
-                    _lastRealTime = tick()
+                if currentTime ~= lastGameTime then
+                    lastGameTime = currentTime
+                    lastRealTime = tick()
                 end
-                local _timeFrozen = tick() - _lastRealTime
+                local timeFrozen = tick() - lastRealTime
 
                 -- [Kasus 1] Perbaiki bug Eclipse
-                if _currentTime >= 2.0 and _currentTime <= 2.3 and _timeFrozen > 10 then 
-                    if not _hasFixedEclipse then
-                        if _UseTotemItem(_G.DayTotemSelect, "Fix Eclipse") then
-                            _hasFixedEclipse = true
-                            _lastRealTime = tick()
+                if currentTime >= 2.0 and currentTime <= 2.3 and timeFrozen > 10 then 
+                    if not hasFixedEclipse then
+                        if UseTotemItem(_G.DayTotemSelect, "Fix Eclipse") then
+                            hasFixedEclipse = true
+                            lastRealTime = tick()
                             task.wait(10)
-                            _currentPeriodStatus = nil 
-                            _hasUsedTotem = false      
+                            currentPeriodStatus = nil 
+                            hasUsedTotem = false      
                         end
                     end
                 else
-                    _hasFixedEclipse = false
+                    hasFixedEclipse = false
                 end
                 
                 -- [Kasus 2] Perubahan waktu normal
-                if not _hasFixedEclipse then
-                    local _newPeriod = (_currentTime >= 6.55 and _currentTime < 18.05) and "Day" or "Night"
+                if not hasFixedEclipse then
+                    local newPeriod = (currentTime >= 6.55 and currentTime < 18.05) and "Day" or "Night"
                     
-                    if _newPeriod ~= _currentPeriodStatus then
-                        _currentPeriodStatus = _newPeriod
-                        _hasUsedTotem = false 
+                    if newPeriod ~= currentPeriodStatus then
+                        currentPeriodStatus = newPeriod
+                        hasUsedTotem = false 
                     end
 
-                    if not _hasUsedTotem then
-                        local _targetTotem = (_currentPeriodStatus == "Day") and _G.DayTotemSelect or _G.NightTotemSelect
+                    if not hasUsedTotem then
+                        local targetTotem = (currentPeriodStatus == "Day") and _G.DayTotemSelect or _G.NightTotemSelect
                         
-                        if _targetTotem and _targetTotem ~= "" then
-                            local _result = _UseTotemItem(_targetTotem, "Change Time")
-                            if _result then
-                                _hasUsedTotem = true
+                        if targetTotem and targetTotem ~= "" then
+                            local result = UseTotemItem(targetTotem, "Change Time")
+                            if result then
+                                hasUsedTotem = true
                             end
                         end
                     end
                 end
             else
-                _currentPeriodStatus = nil
-                _hasUsedTotem = false
+                currentPeriodStatus = nil
+                hasUsedTotem = false
             end
         end
     end)
@@ -816,183 +680,183 @@ end
 -- CHARACTER MODULE - ESP, Fly, Noclip, Dash (Aslinya)
 -- ============================================
 
-local _Character = {}
+local Character = {}
 
 -- State dari Config
 -- currentSpot menggunakan _G.currentSpot secara langsung
 
 -- Penampung ESP
-local _ESPHolder = Instance.new("Folder", _Services.CoreGui)
-_ESPHolder.Name = "FischESPHolder"
+local ESPHolder = Instance.new("Folder", Services.CoreGui)
+ESPHolder.Name = "FischESPHolder"
 
-function _Character.Start()
+function Character.Start()
     -- Anti AFK
-    _Services.LocalPlayer.Idled:Connect(function()
+    Services.LocalPlayer.Idled:Connect(function()
         if _G.AntiAFK then
-            _Services.VirtualUser:CaptureController()
-            _Services.VirtualUser:ClickButton2(Vector2.new())
+            Services.VirtualUser:CaptureController()
+            Services.VirtualUser:ClickButton2(Vector2.new())
         end
     end)
 
     -- Penanganan Input
-    _Services.UserInputService.InputBegan:Connect(function(_input, _gp)
-        if _gp then return end
-        _keysDown[_input.KeyCode] = true
+    Services.UserInputService.InputBegan:Connect(function(input, gp)
+        if gp then return end
+        keysDown[input.KeyCode] = true
         
-        if _input.KeyCode == Enum.KeyCode.Q then 
+        if input.KeyCode == Enum.KeyCode.Q then 
             if _G.DashEnabled and not _G.StopAll then
-                local _char = _Services.LocalPlayer.Character
-                if _char and _char:FindFirstChild("HumanoidRootPart") and _char:FindFirstChild("Humanoid") then
-                    local _hrp = _char.HumanoidRootPart
-                    local _moveDir = _char.Humanoid.MoveDirection
-                    if _moveDir.Magnitude == 0 then _moveDir = _hrp.CFrame.LookVector end
-                    local _bv = Instance.new("BodyVelocity")
-                    _bv.Name = "DashVelocity"
-                    _bv.Velocity = _moveDir * _G.DashSpeed
-                    _bv.MaxForce = Vector3.new(1e5, 0, 1e5)
-                    _bv.P = 5000
-                    _bv.Parent = _hrp
-                    _Services.Debris:AddItem(_bv, 0.25)
+                local char = Services.LocalPlayer.Character
+                if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChild("Humanoid") then
+                    local hrp = char.HumanoidRootPart
+                    local moveDir = char.Humanoid.MoveDirection
+                    if moveDir.Magnitude == 0 then moveDir = hrp.CFrame.LookVector end
+                    local bv = Instance.new("BodyVelocity")
+                    bv.Name = "DashVelocity"
+                    bv.Velocity = moveDir * _G.DashSpeed
+                    bv.MaxForce = Vector3.new(1e5, 0, 1e5)
+                    bv.P = 5000
+                    bv.Parent = hrp
+                    Services.Debris:AddItem(bv, 0.25)
                 end
             end
         end
         
-        if _input.KeyCode == Enum.KeyCode.LeftShift then
+        if input.KeyCode == Enum.KeyCode.LeftShift then
             _G.BoostEnabled = not _G.BoostEnabled
         end
         
-        if _input.KeyCode == Enum.KeyCode.Space and _G.FlyEnabled and not _G.StopAll then
-            if (tick() - _lastSpacePress) < 0.3 then
+        if input.KeyCode == Enum.KeyCode.Space and _G.FlyEnabled and not _G.StopAll then
+            if (tick() - lastSpacePress) < 0.3 then
                 _G.IsFlying = not _G.IsFlying
-                _currentFlyVelocity = Vector3.new(0, 0, 0)
-                if not _G.IsFlying and _Services.LocalPlayer.Character and _Services.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                    _Services.LocalPlayer.Character.Humanoid.PlatformStand = false
+                currentFlyVelocity = Vector3.new(0, 0, 0)
+                if not _G.IsFlying and Services.LocalPlayer.Character and Services.LocalPlayer.Character:FindFirstChild("Humanoid") then
+                    Services.LocalPlayer.Character.Humanoid.PlatformStand = false
                 end
             end
-            _lastSpacePress = tick()
+            lastSpacePress = tick()
         end
     end)
     
-    _Services.UserInputService.InputEnded:Connect(function(_input)
-        _keysDown[_input.KeyCode] = nil
+    Services.UserInputService.InputEnded:Connect(function(input)
+        keysDown[input.KeyCode] = nil
     end)
 
     -- Loop Utama RenderStepped
-    _Services.RunService.RenderStepped:Connect(function()
+    Services.RunService.RenderStepped:Connect(function()
         -- ESP
         if _G.ESPEnabled then
-            for _, _player in pairs(_Services.Players:GetPlayers()) do
-                if _player ~= _Services.LocalPlayer and _player.Character and _player.Character:FindFirstChild("Head") then
-                    local _head = _player.Character.Head
-                    local _espBox = _ESPHolder:FindFirstChild(_player.Name)
-                    if not _espBox then
-                        _espBox = Instance.new("BillboardGui", _ESPHolder)
-                        _espBox.Name = _player.Name
-                        _espBox.Size = UDim2.new(0, 100, 0, 50)
-                        _espBox.StudsOffset = Vector3.new(0, 2, 0)
-                        _espBox.AlwaysOnTop = true
-                        local _nl = Instance.new("TextLabel", _espBox)
-                        _nl.Name = "NameLabel"
-                        _nl.Size = UDim2.new(1,0,1,0)
-                        _nl.BackgroundTransparency = 1
-                        _nl.TextColor3 = Color3.white
-                        _nl.TextStrokeTransparency = 0
-                        _nl.TextSize = 14
-                        _nl.Font = Enum.Font.SourceSansBold
-                        local _dl = Instance.new("TextLabel", _espBox)
-                        _dl.Name = "DistLabel"
-                        _dl.Size = UDim2.new(1,0,0.5,0)
-                        _dl.Position = UDim2.new(0,0,0.8,0)
-                        _dl.BackgroundTransparency = 1
-                        _dl.TextColor3 = Color3.new(0.8,0.8,0.8)
-                        _dl.TextStrokeTransparency = 0
-                        _dl.TextSize = 12
-                        _dl.Font = Enum.Font.SourceSans
+            for _, player in pairs(Services.Players:GetPlayers()) do
+                if player ~= Services.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+                    local head = player.Character.Head
+                    local espBox = ESPHolder:FindFirstChild(player.Name)
+                    if not espBox then
+                        espBox = Instance.new("BillboardGui", ESPHolder)
+                        espBox.Name = player.Name
+                        espBox.Size = UDim2.new(0, 100, 0, 50)
+                        espBox.StudsOffset = Vector3.new(0, 2, 0)
+                        espBox.AlwaysOnTop = true
+                        local nl = Instance.new("TextLabel", espBox)
+                        nl.Name = "NameLabel"
+                        nl.Size = UDim2.new(1,0,1,0)
+                        nl.BackgroundTransparency = 1
+                        nl.TextColor3 = Color3.white
+                        nl.TextStrokeTransparency = 0
+                        nl.TextSize = 14
+                        nl.Font = Enum.Font.SourceSansBold
+                        local dl = Instance.new("TextLabel", espBox)
+                        dl.Name = "DistLabel"
+                        dl.Size = UDim2.new(1,0,0.5,0)
+                        dl.Position = UDim2.new(0,0,0.8,0)
+                        dl.BackgroundTransparency = 1
+                        dl.TextColor3 = Color3.new(0.8,0.8,0.8)
+                        dl.TextStrokeTransparency = 0
+                        dl.TextSize = 12
+                        dl.Font = Enum.Font.SourceSans
                     end
-                    if _espBox.Adornee ~= _head then _espBox.Adornee = _head end
-                    local _myRoot = _Services.LocalPlayer.Character and _Services.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-                    local _dist = _myRoot and (_myRoot.Position - _head.Position).Magnitude or 0
-                    _espBox.NameLabel.Text = _player.DisplayName .. " (@" .. _player.Name .. ")"
-                    _espBox.DistLabel.Text = math.floor(_dist) .. " m"
+                    if espBox.Adornee ~= head then espBox.Adornee = head end
+                    local myRoot = Services.LocalPlayer.Character and Services.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    local dist = myRoot and (myRoot.Position - head.Position).Magnitude or 0
+                    espBox.NameLabel.Text = player.DisplayName .. " (@" .. player.Name .. ")"
+                    espBox.DistLabel.Text = math.floor(dist) .. " m"
                 else
-                    if _ESPHolder:FindFirstChild(_player.Name) then _ESPHolder[_player.Name]:Destroy() end
+                    if ESPHolder:FindFirstChild(player.Name) then ESPHolder[player.Name]:Destroy() end
                 end
             end
-        elseif #_ESPHolder:GetChildren() > 0 then
-            _ESPHolder:ClearAllChildren()
+        elseif #ESPHolder:GetChildren() > 0 then
+            ESPHolder:ClearAllChildren()
         end
 
         if _G.StopAll then return end
         
-        local _char = _Services.LocalPlayer.Character
-        if not _char then return end
+        local char = Services.LocalPlayer.Character
+        if not char then return end
         
-        local _hrp, _hum = _char:FindFirstChild("HumanoidRootPart"), _char:FindFirstChild("Humanoid")
+        local hrp, hum = char:FindFirstChild("HumanoidRootPart"), char:FindFirstChild("Humanoid")
         
         -- Noclip
         if _G.Noclip then
-            for _, _v in pairs(_char:GetDescendants()) do
-                if _v:IsA("BasePart") then
-                    _v.CanCollide = false
+            for _, v in pairs(char:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
                 end
             end
         end
         
         -- Fisika Terbang
-        if _G.IsFlying and _hrp and _hum then
-            _hum.PlatformStand = true
-            _hum.AutoRotate = false
-            local _bv = _hrp:FindFirstChild(_STR[32]) or Instance.new("BodyVelocity", _hrp)
-            _bv.Name = _STR[32]
-            _bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-            local _bg = _hrp:FindFirstChild(_STR[33]) or Instance.new("BodyGyro", _hrp)
-            _bg.Name = _STR[33]
-            _bg.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
-            local _moveDir = _hum.MoveDirection
-            local _cam = workspace.CurrentCamera
-            if _moveDir.Magnitude > 0 then
-                local _lookY = _cam.CFrame.LookVector.Y
-                _moveDir = Vector3.new(_moveDir.X, _moveDir.Y + (_lookY * 2), _moveDir.Z).Unit
+        if _G.IsFlying and hrp and hum then
+            hum.PlatformStand = true
+            hum.AutoRotate = false
+            local bv = hrp:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity", hrp)
+            bv.Name = "FlyVelocity"
+            bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+            local bg = hrp:FindFirstChild("FlyGyro") or Instance.new("BodyGyro", hrp)
+            bg.Name = "FlyGyro"
+            bg.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+            local moveDir = hum.MoveDirection
+            local cam = workspace.CurrentCamera
+            if moveDir.Magnitude > 0 then
+                local lookY = cam.CFrame.LookVector.Y
+                moveDir = Vector3.new(moveDir.X, moveDir.Y + (lookY * 2), moveDir.Z).Unit
             end
-            if _keysDown[Enum.KeyCode.Space] or _G.MobileFlyUp then
-                _moveDir = _moveDir + Vector3.new(0, 1, 0)
+            if keysDown[Enum.KeyCode.Space] or _G.MobileFlyUp then
+                moveDir = moveDir + Vector3.new(0, 1, 0)
             end
-            local _speed = _G.FlySpeed * (_G.BoostEnabled and 2.5 or 1.0)
-            if _moveDir.Magnitude > 0 then
-                _currentFlyVelocity = _currentFlyVelocity:Lerp(_moveDir.Unit * _speed, 0.2)
-                _bg.CFrame = _bg.CFrame:Lerp(CFrame.lookAt(_hrp.Position, _hrp.Position + _currentFlyVelocity) * CFrame.Angles(math.rad(-90), 0, 0), 0.2)
+            local speed = _G.FlySpeed * (_G.BoostEnabled and 2.5 or 1.0)
+            if moveDir.Magnitude > 0 then
+                currentFlyVelocity = currentFlyVelocity:Lerp(moveDir.Unit * speed, 0.2)
+                bg.CFrame = bg.CFrame:Lerp(CFrame.lookAt(hrp.Position, hrp.Position + currentFlyVelocity) * CFrame.Angles(math.rad(-90), 0, 0), 0.2)
             else
-                _currentFlyVelocity = _G.FlyInertia and _currentFlyVelocity:Lerp(Vector3.zero, 0.05) or Vector3.zero
-                local _forward = _cam.CFrame.LookVector
-                _bg.CFrame = _bg.CFrame:Lerp(CFrame.lookAt(_hrp.Position, _hrp.Position + Vector3.new(_forward.X, 0, _forward.Z)), 0.1)
+                currentFlyVelocity = _G.FlyInertia and currentFlyVelocity:Lerp(Vector3.zero, 0.05) or Vector3.zero
+                local forward = cam.CFrame.LookVector
+                bg.CFrame = bg.CFrame:Lerp(CFrame.lookAt(hrp.Position, hrp.Position + Vector3.new(forward.X, 0, forward.Z)), 0.1)
             end
-            _bv.Velocity = _currentFlyVelocity
+            bv.Velocity = currentFlyVelocity
         else
-            if _hrp and _hrp:FindFirstChild(_STR[32]) then _hrp[_STR[32]]:Destroy() end
-            if _hrp and _hrp:FindFirstChild(_STR[33]) then _hrp[_STR[33]]:Destroy() end
-            if _hum then _hum.PlatformStand = false; _hum.AutoRotate = true end
+            if hrp and hrp:FindFirstChild("FlyVelocity") then hrp.FlyVelocity:Destroy() end
+            if hrp and hrp:FindFirstChild("FlyGyro") then hrp.FlyGyro:Destroy() end
+            if hum then hum.PlatformStand = false; hum.AutoRotate = true end
         end
         
         -- Kunci Posisi untuk Auto Fish
-        if _G.AutoFish and _G.LockPosition and _G.currentSpot and not _G.IsFlying and _hrp then
-            _hrp.CFrame = _G.currentSpot
-            _hrp.Velocity = Vector3.zero
+        if _G.AutoFish and _G.LockPosition and _G.currentSpot and not _G.IsFlying and hrp then
+            hrp.CFrame = _G.currentSpot
+            hrp.Velocity = Vector3.zero
         end
         
         -- WalkSpeed & JumpPower
-        if _hum and not _G.IsFlying then
-            if _G.WalkSpeedEnabled then _hum.WalkSpeed = _G.WalkSpeed end
-            if _G.JumpPowerEnabled then _hum.UseJumpPower = true; _hum.JumpPower = _G.JumpPower end
+        if hum and not _G.IsFlying then
+            if _G.WalkSpeedEnabled then hum.WalkSpeed = _G.WalkSpeed end
+            if _G.JumpPowerEnabled then hum.UseJumpPower = true; hum.JumpPower = _G.JumpPower end
         end
         
         -- Frozen Bar
         if _G.AutoFish and _G.FrozenBar then
-            local _bar = _Services.LocalPlayer.PlayerGui:FindFirstChild(_STR[3]) and _Services.LocalPlayer.PlayerGui[_STR[3]]:FindFirstChild("bar")
-            if _bar and _bar:FindFirstChild("playerbar") then
-                _bar.playerbar.Size = UDim2.new(1,0,1,0)
-                _bar.playerbar.Position = UDim2.new(0,0,0,0)
-                _bar.playerbar.AnchorPoint = Vector2.new(0,0)
-                _bar.playerbar.BackgroundColor3 = Color3.new(1,1,1)
+            local bar = Services.LocalPlayer.PlayerGui:FindFirstChild("reel") and Services.LocalPlayer.PlayerGui.reel:FindFirstChild("bar")
+            if bar and bar:FindFirstChild("playerbar") then
+                bar.playerbar.Size = UDim2.new(1,0,1,0)
+                bar.playerbar.Position = UDim2.new(0,0,0,0)
+                bar.playerbar.AnchorPoint = Vector2.new(0,0)
+                bar.playerbar.BackgroundColor3 = Color3.new(1,1,1)
             end
         end
     end)
@@ -1002,220 +866,220 @@ end
 -- LOG UI MODULE - Sistem Log
 -- ============================================
 
-local _LogUI = {}
+local LogUI = {}
 
 -- Elemen UI
-local _LogGui, _LogFrame, _LogScroll, _UIList
+local LogGui, LogFrame, LogScroll, UIList
 
-function _LogUI.Create()
+function LogUI.Create()
     -- [[ 📜 PENYIAPAN SISTEM LOG ]] --
-    _LogGui = Instance.new("ScreenGui")
-    _LogGui.Name = "FischLogGui"
-    _LogGui.Parent = game:GetService("CoreGui")
-    _LogGui.Enabled = false
-    _LogGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    LogGui = Instance.new("ScreenGui")
+    LogGui.Name = "FischLogGui"
+    LogGui.Parent = game:GetService("CoreGui")
+    LogGui.Enabled = false
+    LogGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-    _LogFrame = Instance.new("Frame")
-    _LogFrame.Name = "MainFrame"
-    _LogFrame.Parent = _LogGui
-    _LogFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    _LogFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
-    _LogFrame.BorderSizePixel = 1
-    _LogFrame.Position = UDim2.new(0.75, 0, 0.65, 0)
-    _LogFrame.Size = UDim2.new(0, 300, 0, 200)
-    _LogFrame.Active = true
-    _LogFrame.Draggable = true
+    LogFrame = Instance.new("Frame")
+    LogFrame.Name = "MainFrame"
+    LogFrame.Parent = LogGui
+    LogFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    LogFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
+    LogFrame.BorderSizePixel = 1
+    LogFrame.Position = UDim2.new(0.75, 0, 0.65, 0)
+    LogFrame.Size = UDim2.new(0, 300, 0, 200)
+    LogFrame.Active = true
+    LogFrame.Draggable = true
 
     -- Judul (Title Bar)
-    local _LogTitle = Instance.new("TextLabel")
-    _LogTitle.Parent = _LogFrame
-    _LogTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    _LogTitle.Size = UDim2.new(1, 0, 0, 25)
-    _LogTitle.Font = Enum.Font.GothamBold
-    _LogTitle.Text = "  📜 Log Script"
-    _LogTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _LogTitle.TextSize = 14
-    _LogTitle.TextXAlignment = Enum.TextXAlignment.Left
+    local LogTitle = Instance.new("TextLabel")
+    LogTitle.Parent = LogFrame
+    LogTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    LogTitle.Size = UDim2.new(1, 0, 0, 25)
+    LogTitle.Font = Enum.Font.GothamBold
+    LogTitle.Text = "  📜 Log Script"
+    LogTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    LogTitle.TextSize = 14
+    LogTitle.TextXAlignment = Enum.TextXAlignment.Left
 
     -- Area tampilan pesan (Scrolling Frame)
-    _LogScroll = Instance.new("ScrollingFrame")
-    _LogScroll.Parent = _LogFrame
-    _LogScroll.BackgroundTransparency = 1
-    _LogScroll.Position = UDim2.new(0, 5, 0, 30)
-    _LogScroll.Size = UDim2.new(1, -10, 1, -35)
-    _LogScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-    _LogScroll.ScrollBarThickness = 4
+    LogScroll = Instance.new("ScrollingFrame")
+    LogScroll.Parent = LogFrame
+    LogScroll.BackgroundTransparency = 1
+    LogScroll.Position = UDim2.new(0, 5, 0, 30)
+    LogScroll.Size = UDim2.new(1, -10, 1, -35)
+    LogScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    LogScroll.ScrollBarThickness = 4
 
-    _UIList = Instance.new("UIListLayout")
-    _UIList.Parent = _LogScroll
-    _UIList.SortOrder = Enum.SortOrder.LayoutOrder
-    _UIList.Padding = UDim.new(0, 4)
+    UIList = Instance.new("UIListLayout")
+    UIList.Parent = LogScroll
+    UIList.SortOrder = Enum.SortOrder.LayoutOrder
+    UIList.Padding = UDim.new(0, 4)
     
     -- Log Percobaan
-    _LogUI.AddLog("Sistem diinisialisasi...", Color3.fromRGB(100, 255, 100))
+    LogUI.AddLog("Sistem diinisialisasi...", Color3.fromRGB(100, 255, 100))
 end
 
-function _LogUI.AddLog(_text, _color)
-    if not _LogScroll then return end
+function LogUI.AddLog(text, color)
+    if not LogScroll then return end
     
-    local _timestamp = os.date("%H:%M:%S")
-    local _label = Instance.new("TextLabel")
-    _label.Parent = _LogScroll
-    _label.BackgroundTransparency = 1
-    _label.Size = UDim2.new(1, 0, 0, 18)
-    _label.Font = Enum.Font.SourceSans
-    _label.Text = string.format("[%s] %s", _timestamp, _text)
-    _label.TextColor3 = _color or Color3.fromRGB(200, 200, 200)
-    _label.TextSize = 14
-    _label.TextXAlignment = Enum.TextXAlignment.Left
-    _label.TextWrapped = false
+    local timestamp = os.date("%H:%M:%S")
+    local label = Instance.new("TextLabel")
+    label.Parent = LogScroll
+    label.BackgroundTransparency = 1
+    label.Size = UDim2.new(1, 0, 0, 18)
+    label.Font = Enum.Font.SourceSans
+    label.Text = string.format("[%s] %s", timestamp, text)
+    label.TextColor3 = color or Color3.fromRGB(200, 200, 200)
+    label.TextSize = 14
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.TextWrapped = false
     
     -- Auto Scroll
-    _LogScroll.CanvasSize = UDim2.new(0, 0, 0, _UIList.AbsoluteContentSize.Y)
-    _LogScroll.CanvasPosition = Vector2.new(0, _UIList.AbsoluteContentSize.Y)
+    LogScroll.CanvasSize = UDim2.new(0, 0, 0, UIList.AbsoluteContentSize.Y)
+    LogScroll.CanvasPosition = Vector2.new(0, UIList.AbsoluteContentSize.Y)
     
     -- Hapus log lama jika terlalu banyak
-    if #_LogScroll:GetChildren() > 100 then
-        _LogScroll:GetChildren()[2]:Destroy()
+    if #LogScroll:GetChildren() > 100 then
+        LogScroll:GetChildren()[2]:Destroy()
     end
 end
 
 -- Tetapkan ke _G sesuai aslinya
-_G.AddLog = _LogUI.AddLog
+_G.AddLog = LogUI.AddLog
 
-function _LogUI.SetVisible(_enabled)
-    if _LogGui then
-        _LogGui.Enabled = _enabled
+function LogUI.SetVisible(enabled)
+    if LogGui then
+        LogGui.Enabled = enabled
     end
 end
 
-function _LogUI.ClearLogs()
-    if not _LogScroll then return end
-    for _, _child in pairs(_LogScroll:GetChildren()) do
-        if _child:IsA("TextLabel") then _child:Destroy() end
+function LogUI.ClearLogs()
+    if not LogScroll then return end
+    for _, child in pairs(LogScroll:GetChildren()) do
+        if child:IsA("TextLabel") then child:Destroy() end
     end
-    _LogScroll.CanvasSize = UDim2.new(0,0,0,0)
-    _LogUI.AddLog("Log dihapus.", Color3.fromRGB(255, 255, 0))
+    LogScroll.CanvasSize = UDim2.new(0,0,0,0)
+    LogUI.AddLog("Log dihapus.", Color3.fromRGB(255, 255, 0))
 end
 
 -- ============================================
 -- INFO UI MODULE - Panel Info Server
 -- ============================================
 
-local _InfoUI = {}
+local InfoUI = {}
 
 -- Elemen UI (Global dalam modul)
-local _InfoGui, _InfoFrame, _RealTimeLabel, _GameTimeLabel, _UptimeLabel
+local InfoGui, InfoFrame, RealTimeLabel, GameTimeLabel, UptimeLabel
 
-function _InfoUI.Create()
+function InfoUI.Create()
     -- [[ ℹ️ PENYIAPAN PANEL INFO SERVER ]] --
-    _InfoGui = Instance.new("ScreenGui")
-    _InfoGui.Name = "FischInfoGui"
-    _InfoGui.Parent = game:GetService("CoreGui")
-    _InfoGui.Enabled = true
-    _InfoGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    InfoGui = Instance.new("ScreenGui")
+    InfoGui.Name = "FischInfoGui"
+    InfoGui.Parent = game:GetService("CoreGui")
+    InfoGui.Enabled = true
+    InfoGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     -- Kerangka Utama (Main Frame)
-    _InfoFrame = Instance.new("Frame")
-    _InfoFrame.Name = "MainFrame"
-    _InfoFrame.Parent = _InfoGui
-    _InfoFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    _InfoFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
-    _InfoFrame.BorderSizePixel = 1
-    _InfoFrame.Position = UDim2.new(0.02, 0, 0.25, 0)
-    _InfoFrame.Size = UDim2.new(0, 250, 0, 120)
-    _InfoFrame.Active = true
-    _InfoFrame.Draggable = true
+    InfoFrame = Instance.new("Frame")
+    InfoFrame.Name = "MainFrame"
+    InfoFrame.Parent = InfoGui
+    InfoFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    InfoFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
+    InfoFrame.BorderSizePixel = 1
+    InfoFrame.Position = UDim2.new(0.02, 0, 0.25, 0)
+    InfoFrame.Size = UDim2.new(0, 250, 0, 120)
+    InfoFrame.Active = true
+    InfoFrame.Draggable = true
 
     -- Judul (Title Bar)
-    local _InfoTitle = Instance.new("TextLabel")
-    _InfoTitle.Parent = _InfoFrame
-    _InfoTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    _InfoTitle.Size = UDim2.new(1, 0, 0, 25)
-    _InfoTitle.Font = Enum.Font.GothamBold
-    _InfoTitle.Text = "  📊 Info Server"
-    _InfoTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _InfoTitle.TextSize = 14
-    _InfoTitle.TextXAlignment = Enum.TextXAlignment.Left
+    local InfoTitle = Instance.new("TextLabel")
+    InfoTitle.Parent = InfoFrame
+    InfoTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    InfoTitle.Size = UDim2.new(1, 0, 0, 25)
+    InfoTitle.Font = Enum.Font.GothamBold
+    InfoTitle.Text = "  📊 Info Server"
+    InfoTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    InfoTitle.TextSize = 14
+    InfoTitle.TextXAlignment = Enum.TextXAlignment.Left
 
     -- Tombol lipat (Minimize Button)
-    local _MinimizeBtn = Instance.new("TextButton")
-    _MinimizeBtn.Parent = _InfoFrame
-    _MinimizeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-    _MinimizeBtn.BackgroundTransparency = 1
-    _MinimizeBtn.Position = UDim2.new(1, -30, 0, 0)
-    _MinimizeBtn.Size = UDim2.new(0, 30, 0, 25)
-    _MinimizeBtn.Font = Enum.Font.GothamBold
-    _MinimizeBtn.Text = "-"
-    _MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _MinimizeBtn.TextSize = 18
+    local MinimizeBtn = Instance.new("TextButton")
+    MinimizeBtn.Parent = InfoFrame
+    MinimizeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    MinimizeBtn.BackgroundTransparency = 1
+    MinimizeBtn.Position = UDim2.new(1, -30, 0, 0)
+    MinimizeBtn.Size = UDim2.new(0, 30, 0, 25)
+    MinimizeBtn.Font = Enum.Font.GothamBold
+    MinimizeBtn.Text = "-"
+    MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MinimizeBtn.TextSize = 18
 
     -- Area Konten (Content)
-    local _ContentFrame = Instance.new("Frame")
-    _ContentFrame.Parent = _InfoFrame
-    _ContentFrame.BackgroundTransparency = 1
-    _ContentFrame.Position = UDim2.new(0, 10, 0, 30)
-    _ContentFrame.Size = UDim2.new(1, -20, 1, -35)
+    local ContentFrame = Instance.new("Frame")
+    ContentFrame.Parent = InfoFrame
+    ContentFrame.BackgroundTransparency = 1
+    ContentFrame.Position = UDim2.new(0, 10, 0, 30)
+    ContentFrame.Size = UDim2.new(1, -20, 1, -35)
 
     -- Buat TextLabel untuk menampilkan berbagai nilai
-    local function _CreateInfoLabel(_order, _defaultText)
-        local _lbl = Instance.new("TextLabel")
-        _lbl.Parent = _ContentFrame
-        _lbl.BackgroundTransparency = 1
-        _lbl.Position = UDim2.new(0, 0, 0, (_order - 1) * 25)
-        _lbl.Size = UDim2.new(1, 0, 0, 25)
-        _lbl.Font = Enum.Font.SourceSansSemibold
-        _lbl.TextColor3 = Color3.fromRGB(200, 200, 200)
-        _lbl.TextSize = 16
-        _lbl.TextXAlignment = Enum.TextXAlignment.Left
-        _lbl.Text = _defaultText
-        return _lbl
+    local function CreateInfoLabel(order, defaultText)
+        local lbl = Instance.new("TextLabel")
+        lbl.Parent = ContentFrame
+        lbl.BackgroundTransparency = 1
+        lbl.Position = UDim2.new(0, 0, 0, (order - 1) * 25)
+        lbl.Size = UDim2.new(1, 0, 0, 25)
+        lbl.Font = Enum.Font.SourceSansSemibold
+        lbl.TextColor3 = Color3.fromRGB(200, 200, 200)
+        lbl.TextSize = 16
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.Text = defaultText
+        return lbl
     end
 
-    _RealTimeLabel = _CreateInfoLabel(1, "🕒 Waktu Nyata: ...")
-    _GameTimeLabel = _CreateInfoLabel(2, "☀️ Waktu Game: ...")
-    _UptimeLabel = _CreateInfoLabel(3, "⏳ Uptime: ...")
+    RealTimeLabel = CreateInfoLabel(1, "🕒 Waktu Nyata: ...")
+    GameTimeLabel = CreateInfoLabel(2, "☀️ Waktu Game: ...")
+    UptimeLabel = CreateInfoLabel(3, "⏳ Uptime: ...")
 
     -- [[ Sistem Lipat (Minimizing Logic) ]] --
-    local _isMinimized = false
-    _MinimizeBtn.MouseButton1Click:Connect(function()
-        _isMinimized = not _isMinimized
-        if _isMinimized then
-            _InfoFrame:TweenSize(UDim2.new(0, 250, 0, 25), "Out", "Quad", 0.3, true)
-            _ContentFrame.Visible = false
-            _MinimizeBtn.Text = "+"
+    local isMinimized = false
+    MinimizeBtn.MouseButton1Click:Connect(function()
+        isMinimized = not isMinimized
+        if isMinimized then
+            InfoFrame:TweenSize(UDim2.new(0, 250, 0, 25), "Out", "Quad", 0.3, true)
+            ContentFrame.Visible = false
+            MinimizeBtn.Text = "+"
         else
-            _InfoFrame:TweenSize(UDim2.new(0, 250, 0, 120), "Out", "Quad", 0.3, true)
-            _ContentFrame.Visible = true
-            _MinimizeBtn.Text = "-"
+            InfoFrame:TweenSize(UDim2.new(0, 250, 0, 120), "Out", "Quad", 0.3, true)
+            ContentFrame.Visible = true
+            MinimizeBtn.Text = "-"
         end
     end)
 end
 
-function _InfoUI.SetVisible(_enabled)
-    if _InfoGui then
-        _InfoGui.Enabled = _enabled
+function InfoUI.SetVisible(enabled)
+    if InfoGui then
+        InfoGui.Enabled = enabled
     end
 end
 
-function _InfoUI.Update(_formatTimeFunc, _formatGameTimeFunc)
-    if not _InfoGui or not _InfoGui.Enabled then return end
+function InfoUI.Update(formatTimeFunc, formatGameTimeFunc)
+    if not InfoGui or not InfoGui.Enabled then return end
     
-    local _statusTime = os.date("%H:%M:%S")
-    local _clockTime = game:GetService("Lighting").ClockTime
-    local _timeState = (_clockTime >= 6 and _clockTime < 18) and "Siang ☀️" or "Malam 🌙"
-    local _gameTimeStr = _formatGameTimeFunc(_clockTime) .. " " .. _timeState
-    local _serverTime = workspace.DistributedGameTime
-    local _uptimeStr = _formatTimeFunc(_serverTime)
+    local statusTime = os.date("%H:%M:%S")
+    local clockTime = game:GetService("Lighting").ClockTime
+    local timeState = (clockTime >= 6 and clockTime < 18) and "Siang ☀️" or "Malam 🌙"
+    local gameTimeStr = formatGameTimeFunc(clockTime) .. " " .. timeState
+    local serverTime = workspace.DistributedGameTime
+    local uptimeStr = formatTimeFunc(serverTime)
     
-    _RealTimeLabel.Text = "🕒 Waktu Nyata:  " .. _statusTime
-    _GameTimeLabel.Text = "🗓️ Waktu Game: " .. _gameTimeStr
-    _UptimeLabel.Text = "⏳ Waktu Online:    " .. _uptimeStr
+    RealTimeLabel.Text = "🕒 Waktu Nyata:  " .. statusTime
+    GameTimeLabel.Text = "🗓️ Waktu Game: " .. gameTimeStr
+    UptimeLabel.Text = "⏳ Waktu Online:    " .. uptimeStr
     
-    if _timeState == "Siang ☀️" then
-        _GameTimeLabel.TextColor3 = Color3.fromRGB(255, 220, 100)
+    if timeState == "Siang ☀️" then
+        GameTimeLabel.TextColor3 = Color3.fromRGB(255, 220, 100)
     else
-        _GameTimeLabel.TextColor3 = Color3.fromRGB(100, 150, 255)
+        GameTimeLabel.TextColor3 = Color3.fromRGB(100, 150, 255)
     end
 end
 
@@ -1223,132 +1087,132 @@ end
 -- FLY UI MODULE - Panel Kontrol Terbang
 -- ============================================
 
-local _FlyUI = {}
+local FlyUI = {}
 
 -- Elemen UI
-local _FlyGui, _FlyFrame, _ToggleFlyBtn, _BoostFlyBtn
+local FlyGui, FlyFrame, ToggleFlyBtn, BoostFlyBtn
 
-function _FlyUI.Create()
+function FlyUI.Create()
     -- [[ ✈️ PANEL KONTROL TERBANG (MOBILE) ]] --
-    _FlyGui = Instance.new("ScreenGui")
-    _FlyGui.Name = "FischFlyGui"
-    _FlyGui.Parent = game:GetService("CoreGui")
-    _FlyGui.Enabled = false
-    _FlyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    FlyGui = Instance.new("ScreenGui")
+    FlyGui.Name = "FischFlyGui"
+    FlyGui.Parent = game:GetService("CoreGui")
+    FlyGui.Enabled = false
+    FlyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     -- Kerangka Utama
-    _FlyFrame = Instance.new("Frame")
-    _FlyFrame.Name = "FlyMainFrame"
-    _FlyFrame.Parent = _FlyGui
-    _FlyFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    _FlyFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
-    _FlyFrame.BorderSizePixel = 1
-    _FlyFrame.Position = UDim2.new(0.8, 0, 0.25, 0)
-    _FlyFrame.Size = UDim2.new(0, 150, 0, 180)
-    _FlyFrame.Active = true
-    _FlyFrame.Draggable = true
+    FlyFrame = Instance.new("Frame")
+    FlyFrame.Name = "FlyMainFrame"
+    FlyFrame.Parent = FlyGui
+    FlyFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    FlyFrame.BorderColor3 = Color3.fromRGB(60, 60, 60)
+    FlyFrame.BorderSizePixel = 1
+    FlyFrame.Position = UDim2.new(0.8, 0, 0.25, 0)
+    FlyFrame.Size = UDim2.new(0, 150, 0, 180)
+    FlyFrame.Active = true
+    FlyFrame.Draggable = true
 
     -- Judul
-    local _FlyTitle = Instance.new("TextLabel")
-    _FlyTitle.Parent = _FlyFrame
-    _FlyTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    _FlyTitle.Size = UDim2.new(1, 0, 0, 25)
-    _FlyTitle.Font = Enum.Font.GothamBold
-    _FlyTitle.Text = "  ✈️ Kontrol Terbang"
-    _FlyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _FlyTitle.TextSize = 14
-    _FlyTitle.TextXAlignment = Enum.TextXAlignment.Left
+    local FlyTitle = Instance.new("TextLabel")
+    FlyTitle.Parent = FlyFrame
+    FlyTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    FlyTitle.Size = UDim2.new(1, 0, 0, 25)
+    FlyTitle.Font = Enum.Font.GothamBold
+    FlyTitle.Text = "  ✈️ Kontrol Terbang"
+    FlyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    FlyTitle.TextSize = 14
+    FlyTitle.TextXAlignment = Enum.TextXAlignment.Left
 
     -- Tombol lipat
-    local _FlyMinimizeBtn = Instance.new("TextButton")
-    _FlyMinimizeBtn.Parent = _FlyFrame
-    _FlyMinimizeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-    _FlyMinimizeBtn.BackgroundTransparency = 1
-    _FlyMinimizeBtn.Position = UDim2.new(1, -30, 0, 0)
-    _FlyMinimizeBtn.Size = UDim2.new(0, 30, 0, 25)
-    _FlyMinimizeBtn.Font = Enum.Font.GothamBold
-    _FlyMinimizeBtn.Text = "-"
-    _FlyMinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _FlyMinimizeBtn.TextSize = 18
+    local FlyMinimizeBtn = Instance.new("TextButton")
+    FlyMinimizeBtn.Parent = FlyFrame
+    FlyMinimizeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    FlyMinimizeBtn.BackgroundTransparency = 1
+    FlyMinimizeBtn.Position = UDim2.new(1, -30, 0, 0)
+    FlyMinimizeBtn.Size = UDim2.new(0, 30, 0, 25)
+    FlyMinimizeBtn.Font = Enum.Font.GothamBold
+    FlyMinimizeBtn.Text = "-"
+    FlyMinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    FlyMinimizeBtn.TextSize = 18
 
     -- Area konten
-    local _FlyContent = Instance.new("Frame")
-    _FlyContent.Parent = _FlyFrame
-    _FlyContent.BackgroundTransparency = 1
-    _FlyContent.Position = UDim2.new(0, 10, 0, 35)
-    _FlyContent.Size = UDim2.new(1, -20, 1, -45)
+    local FlyContent = Instance.new("Frame")
+    FlyContent.Parent = FlyFrame
+    FlyContent.BackgroundTransparency = 1
+    FlyContent.Position = UDim2.new(0, 10, 0, 35)
+    FlyContent.Size = UDim2.new(1, -20, 1, -45)
 
     -- 1. Tombol On/Off (Toggle Utama)
-    _ToggleFlyBtn = Instance.new("TextButton")
-    _ToggleFlyBtn.Name = "ToggleFlyBtn"
-    _ToggleFlyBtn.Parent = _FlyContent
-    _ToggleFlyBtn.Size = UDim2.new(1, 0, 0, 50)
-    _ToggleFlyBtn.Position = UDim2.new(0, 0, 0, 0)
-    _ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-    _ToggleFlyBtn.Font = Enum.Font.GothamBold
-    _ToggleFlyBtn.Text = "MATI"
-    _ToggleFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _ToggleFlyBtn.TextSize = 24
-    Instance.new("UICorner", _ToggleFlyBtn).CornerRadius = UDim.new(0, 8)
+    ToggleFlyBtn = Instance.new("TextButton")
+    ToggleFlyBtn.Name = "ToggleFlyBtn"
+    ToggleFlyBtn.Parent = FlyContent
+    ToggleFlyBtn.Size = UDim2.new(1, 0, 0, 50)
+    ToggleFlyBtn.Position = UDim2.new(0, 0, 0, 0)
+    ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    ToggleFlyBtn.Font = Enum.Font.GothamBold
+    ToggleFlyBtn.Text = "MATI"
+    ToggleFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleFlyBtn.TextSize = 24
+    Instance.new("UICorner", ToggleFlyBtn).CornerRadius = UDim.new(0, 8)
 
     -- 2. Tombol Speed Boost
-    _BoostFlyBtn = Instance.new("TextButton")
-    _BoostFlyBtn.Name = "BoostFlyBtn"
-    _BoostFlyBtn.Parent = _FlyContent
-    _BoostFlyBtn.Size = UDim2.new(1, 0, 0, 40)
-    _BoostFlyBtn.Position = UDim2.new(0, 0, 0, 60)
-    _BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-    _BoostFlyBtn.Font = Enum.Font.GothamBold
-    _BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
-    _BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    _BoostFlyBtn.TextSize = 16
-    Instance.new("UICorner", _BoostFlyBtn).CornerRadius = UDim.new(0, 8)
+    BoostFlyBtn = Instance.new("TextButton")
+    BoostFlyBtn.Name = "BoostFlyBtn"
+    BoostFlyBtn.Parent = FlyContent
+    BoostFlyBtn.Size = UDim2.new(1, 0, 0, 40)
+    BoostFlyBtn.Position = UDim2.new(0, 0, 0, 60)
+    BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    BoostFlyBtn.Font = Enum.Font.GothamBold
+    BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
+    BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    BoostFlyBtn.TextSize = 16
+    Instance.new("UICorner", BoostFlyBtn).CornerRadius = UDim.new(0, 8)
 
     -- Logika: Tombol On/Off
-    _ToggleFlyBtn.MouseButton1Click:Connect(function()
+    ToggleFlyBtn.MouseButton1Click:Connect(function()
         _G.IsFlying = not _G.IsFlying
         
         if _G.IsFlying then
-            _ToggleFlyBtn.Text = "HIDUP"
-            _ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+            ToggleFlyBtn.Text = "HIDUP"
+            ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
         else
-            _ToggleFlyBtn.Text = "MATI"
-            _ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+            ToggleFlyBtn.Text = "MATI"
+            ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
             
-            local _char = _Services.LocalPlayer.Character
-            if _char and _char:FindFirstChild("Humanoid") then 
-                _char.Humanoid.PlatformStand = false 
+            local char = Services.LocalPlayer.Character
+            if char and char:FindFirstChild("Humanoid") then 
+                char.Humanoid.PlatformStand = false 
             end
         end
     end)
 
     -- Logika: Tombol Boost
-    _BoostFlyBtn.MouseButton1Click:Connect(function()
+    BoostFlyBtn.MouseButton1Click:Connect(function()
         _G.BoostEnabled = not _G.BoostEnabled
         
         if _G.BoostEnabled then
-            _BoostFlyBtn.Text = "⚡ Kecepatan: CEPAT!"
-            _BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
-            _BoostFlyBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+            BoostFlyBtn.Text = "⚡ Kecepatan: CEPAT!"
+            BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
+            BoostFlyBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         else
-            _BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
-            _BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-            _BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
+            BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
         end
     end)
 
     -- Logika: Perkecil/Perbesar jendela
-    local _isFlyMinimized = false
-    _FlyMinimizeBtn.MouseButton1Click:Connect(function()
-        _isFlyMinimized = not _isFlyMinimized
-        if _isFlyMinimized then
-            _FlyFrame:TweenSize(UDim2.new(0, 150, 0, 25), "Out", "Quad", 0.3, true)
-            _FlyContent.Visible = false
-            _FlyMinimizeBtn.Text = "+"
+    local isFlyMinimized = false
+    FlyMinimizeBtn.MouseButton1Click:Connect(function()
+        isFlyMinimized = not isFlyMinimized
+        if isFlyMinimized then
+            FlyFrame:TweenSize(UDim2.new(0, 150, 0, 25), "Out", "Quad", 0.3, true)
+            FlyContent.Visible = false
+            FlyMinimizeBtn.Text = "+"
         else
-            _FlyFrame:TweenSize(UDim2.new(0, 150, 0, 180), "Out", "Quad", 0.3, true)
-            _FlyContent.Visible = true
-            _FlyMinimizeBtn.Text = "-"
+            FlyFrame:TweenSize(UDim2.new(0, 150, 0, 180), "Out", "Quad", 0.3, true)
+            FlyContent.Visible = true
+            FlyMinimizeBtn.Text = "-"
         end
     end)
 
@@ -1356,34 +1220,34 @@ function _FlyUI.Create()
     task.spawn(function()
         while true do
             task.wait(0.2)
-            if _FlyGui.Enabled then
+            if FlyGui.Enabled then
                 -- Sync tombol terbang
-                if _G.IsFlying and _ToggleFlyBtn.Text ~= "HIDUP" then
-                    _ToggleFlyBtn.Text = "HIDUP"
-                    _ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-                elseif not _G.IsFlying and _ToggleFlyBtn.Text ~= "MATI" then
-                    _ToggleFlyBtn.Text = "MATI"
-                    _ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+                if _G.IsFlying and ToggleFlyBtn.Text ~= "HIDUP" then
+                    ToggleFlyBtn.Text = "HIDUP"
+                    ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+                elseif not _G.IsFlying and ToggleFlyBtn.Text ~= "MATI" then
+                    ToggleFlyBtn.Text = "MATI"
+                    ToggleFlyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
                 end
 
                 -- Sync tombol Boost
-                if _G.BoostEnabled and _BoostFlyBtn.Text ~= "⚡ Kecepatan: CEPAT!" then
-                    _BoostFlyBtn.Text = "⚡ Kecepatan: CEPAT!"
-                    _BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
-                    _BoostFlyBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-                elseif not _G.BoostEnabled and _BoostFlyBtn.Text ~= "⚡ Kecepatan: Normal" then
-                    _BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
-                    _BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-                    _BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                if _G.BoostEnabled and BoostFlyBtn.Text ~= "⚡ Kecepatan: CEPAT!" then
+                    BoostFlyBtn.Text = "⚡ Kecepatan: CEPAT!"
+                    BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
+                    BoostFlyBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                elseif not _G.BoostEnabled and BoostFlyBtn.Text ~= "⚡ Kecepatan: Normal" then
+                    BoostFlyBtn.Text = "⚡ Kecepatan: Normal"
+                    BoostFlyBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+                    BoostFlyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
             end
         end
     end)
 end
 
-function _FlyUI.SetVisible(_enabled)
-    if _FlyGui then
-        _FlyGui.Enabled = _enabled
+function FlyUI.SetVisible(enabled)
+    if FlyGui then
+        FlyGui.Enabled = enabled
     end
 end
 
@@ -1391,98 +1255,98 @@ end
 -- MAIN UI MODULE - Fluent UI dan Tabs
 -- ============================================
 
-local _MainUI = {}
+local MainUI = {}
 
 -- Referensi Global
-_MainUI.Window = nil
-_MainUI.Tabs = nil
-_MainUI.Options = nil
-_MainUI.Fluent = nil
-_MainUI.SaveManager = nil
-_MainUI.InterfaceManager = nil
+MainUI.Window = nil
+MainUI.Tabs = nil
+MainUI.Options = nil
+MainUI.Fluent = nil
+MainUI.SaveManager = nil
+MainUI.InterfaceManager = nil
 
-function _MainUI.Create()
+function MainUI.Create()
     -- Muat Fluent
-    local _success, _result = pcall(function()
-        return loadstring(game:HttpGet(_STR[35]))()
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
     end)
 
-    if not _success or not _result then
+    if not success or not result then
         warn("[Error Script]: Gagal memuat Fluent UI! Periksa koneksi internet Anda.")
         return nil
     end
 
-    local _Fluent = _result
-    _MainUI.Fluent = _Fluent
+    local Fluent = result
+    MainUI.Fluent = Fluent
     
-    local _SaveManager = loadstring(game:HttpGet(_STR[36]))()
-    local _InterfaceManager = loadstring(game:HttpGet(_STR[37]))()
-    _MainUI.SaveManager = _SaveManager
-    _MainUI.InterfaceManager = _InterfaceManager
+    local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+    local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+    MainUI.SaveManager = SaveManager
+    MainUI.InterfaceManager = InterfaceManager
 
     -- 🖼️ PENYIAPAN UI
-    local _Window = _Fluent:CreateWindow({
-        Title = _STR[38],
-        SubTitle = _STR[39],
-        TabWidth = _Services.TabsWidth,
-        Size = _Services.WindowSize,
+    local Window = Fluent:CreateWindow({
+        Title = "TESTING | versi 1",
+        SubTitle = "FISCH",
+        TabWidth = Services.TabsWidth,
+        Size = Services.WindowSize,
         Acrylic = false,
         Theme = "Amethyst",
         MinimizeKey = Enum.KeyCode.LeftControl
     })
-    _MainUI.Window = _Window
+    MainUI.Window = Window
 
     -- Buat Tabs
-    local _Tabs = {
-        Home = _Window:AddTab({ Title = "Home", Icon = "home" }),
-        Main = _Window:AddTab({ Title = "Auto Fish", Icon = "component" }),
-        Autos = _Window:AddTab({ Title = "Autos", Icon = "repeat" }),
-        Character = _Window:AddTab({ Title = "Character", Icon = "user" }),
-        Teleport = _Window:AddTab({ Title = "Teleport", Icon = "map" }),
-        Shop = _Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
-        Visuals = _Window:AddTab({ Title = "Visuals", Icon = "eye" }),
-        Settings = _Window:AddTab({ Title = "Settings", Icon = "settings" }),
-        ServerInfo = _Window:AddTab({ Title = "Server Info", Icon = "info" })
+    local Tabs = {
+        Home = Window:AddTab({ Title = "Home", Icon = "home" }),
+        Main = Window:AddTab({ Title = "Auto Fish", Icon = "component" }),
+        Autos = Window:AddTab({ Title = "Autos", Icon = "repeat" }),
+        Character = Window:AddTab({ Title = "Character", Icon = "user" }),
+        Teleport = Window:AddTab({ Title = "Teleport", Icon = "map" }),
+        Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
+        Visuals = Window:AddTab({ Title = "Visuals", Icon = "eye" }),
+        Settings = Window:AddTab({ Title = "Settings", Icon = "settings" }),
+        ServerInfo = Window:AddTab({ Title = "Server Info", Icon = "info" })
     }
-    _MainUI.Tabs = _Tabs
-    _MainUI.Options = _Fluent.Options
+    MainUI.Tabs = Tabs
+    MainUI.Options = Fluent.Options
 
     return {
-        Fluent = _Fluent,
-        Window = _Window,
-        Tabs = _Tabs,
-        Options = _Fluent.Options,
-        SaveManager = _SaveManager,
-        InterfaceManager = _InterfaceManager
+        Fluent = Fluent,
+        Window = Window,
+        Tabs = Tabs,
+        Options = Fluent.Options,
+        SaveManager = SaveManager,
+        InterfaceManager = InterfaceManager
     }
 end
 
-function _MainUI.CreateMobileUI()
-    local _CoreGui = _Services.CoreGui
-    local _VirtualInputManager = _Services.VirtualInputManager
+function MainUI.CreateMobileUI()
+    local CoreGui = Services.CoreGui
+    local VirtualInputManager = Services.VirtualInputManager
 
-    if _CoreGui:FindFirstChild("FischMobileUI") then _CoreGui.FischMobileUI:Destroy() end
+    if CoreGui:FindFirstChild("FischMobileUI") then CoreGui.FischMobileUI:Destroy() end
     
-    local _ScreenGui = Instance.new("ScreenGui", _CoreGui)
-    _ScreenGui.Name = "FischMobileUI"
+    local ScreenGui = Instance.new("ScreenGui", CoreGui)
+    ScreenGui.Name = "FischMobileUI"
     
-    local _MenuBtn = Instance.new("ImageButton", _ScreenGui)
-    _MenuBtn.Name = "MenuToggle"
-    _MenuBtn.BackgroundColor3 = Color3.new(0,0,0)
-    _MenuBtn.BackgroundTransparency = 0.5
-    _MenuBtn.AnchorPoint = Vector2.new(0.5, 0)
-    _MenuBtn.Position = UDim2.new(0.5, -25, 0.05, 0)
-    _MenuBtn.Size = UDim2.fromOffset(50, 50)
-    _MenuBtn.Size = UDim2.fromOffset(50, 50)
-    _MenuBtn.Image = "rbxassetid://100142831144115"
-    _MenuBtn.Draggable = true
-    Instance.new("UICorner", _MenuBtn).CornerRadius = UDim.new(1,0)
-    Instance.new("UIStroke", _MenuBtn).Color = Color3.new(1,1,1)
+    local MenuBtn = Instance.new("ImageButton", ScreenGui)
+    MenuBtn.Name = "MenuToggle"
+    MenuBtn.BackgroundColor3 = Color3.new(0,0,0)
+    MenuBtn.BackgroundTransparency = 0.5
+    MenuBtn.AnchorPoint = Vector2.new(0.5, 0)
+    MenuBtn.Position = UDim2.new(0.5, -25, 0.05, 0)
+    MenuBtn.Size = UDim2.fromOffset(50, 50)
+    MenuBtn.Size = UDim2.fromOffset(50, 50)
+    MenuBtn.Image = "rbxassetid://100142831144115"
+    MenuBtn.Draggable = true
+    Instance.new("UICorner", MenuBtn).CornerRadius = UDim.new(1,0)
+    Instance.new("UIStroke", MenuBtn).Color = Color3.new(1,1,1)
     
-    _MenuBtn.MouseButton1Click:Connect(function()
-        _VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
+    MenuBtn.MouseButton1Click:Connect(function()
+        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
         task.wait(0.05)
-        _VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
+        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
     end)
 end
 
@@ -1490,383 +1354,383 @@ end
 -- TAB SETUP MODULE - Pengaturan Tabs dan Elemen UI
 -- ============================================
 
-local _TabSetup = {}
+local TabSetup = {}
 
-function _TabSetup.SetupAllTabs(_UI, _Data, _Utils)
-    local _Tabs = _UI.Tabs
-    local _Options = _UI.Options
-    local _Fluent = _UI.Fluent
+function TabSetup.SetupAllTabs(UI, Data, Utils)
+    local Tabs = UI.Tabs
+    local Options = UI.Options
+    local Fluent = UI.Fluent
 
     -- 🏠 HOME
-    _Tabs.Home:AddToggle("StopAll", {Title = "HENTIKAN SEMUA AKSI", Default = false }):OnChanged(function()
-        _G.StopAll = _Options.StopAll.Value
+    Tabs.Home:AddToggle("StopAll", {Title = "HENTIKAN SEMUA AKSI", Default = false }):OnChanged(function()
+        _G.StopAll = Options.StopAll.Value
         if _G.StopAll then
             _G.IsFlying = false
-            local _char = _Services.LocalPlayer.Character
-            if _char and _char:FindFirstChild("Humanoid") then
-                 _char.Humanoid.PlatformStand = false; _char.Humanoid.AutoRotate = true 
+            local char = Services.LocalPlayer.Character
+            if char and char:FindFirstChild("Humanoid") then
+                 char.Humanoid.PlatformStand = false; char.Humanoid.AutoRotate = true 
             end
-            if _char and _char:FindFirstChild("HumanoidRootPart") then
-                _char.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
-                for _, _v in pairs({_STR[32], _STR[33]}) do
-                     if _char.HumanoidRootPart:FindFirstChild(_v) then _char.HumanoidRootPart[_v]:Destroy() end
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                char.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+                for _, v in pairs({"FlyVelocity", "FlyGyro"}) do
+                     if char.HumanoidRootPart:FindFirstChild(v) then char.HumanoidRootPart[v]:Destroy() end
                 end
             end
         end
     end)
 
     -- 🎣 MAIN (Auto Fish)
-    local _ToggleAutoFish = _Tabs.Main:AddToggle("AutoFish", {Title = "Aktifkan Auto Fish", Default = false })
-    _ToggleAutoFish:OnChanged(function()
-        _G.AutoFish = _Options.AutoFish.Value
-        if _G.AutoFish and _Services.LocalPlayer.Character and _Services.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            _G.currentSpot = _Services.LocalPlayer.Character.HumanoidRootPart.CFrame
+    local ToggleAutoFish = Tabs.Main:AddToggle("AutoFish", {Title = "Aktifkan Auto Fish", Default = false })
+    ToggleAutoFish:OnChanged(function()
+        _G.AutoFish = Options.AutoFish.Value
+        if _G.AutoFish and Services.LocalPlayer.Character and Services.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            _G.currentSpot = Services.LocalPlayer.Character.HumanoidRootPart.CFrame
         else
             _G.currentSpot = nil
         end
     end)
-    _Tabs.Main:AddToggle("AutoShake", {Title = "Auto Shake", Default = true }):OnChanged(function() _G.AutoShake = _Options.AutoShake.Value end)
-    _Tabs.Main:AddToggle("LockPosition", {Title = "Kunci Posisi", Default = true }):OnChanged(function() _G.LockPosition = _Options.LockPosition.Value end)
+    Tabs.Main:AddToggle("AutoShake", {Title = "Auto Shake", Default = true }):OnChanged(function() _G.AutoShake = Options.AutoShake.Value end)
+    Tabs.Main:AddToggle("LockPosition", {Title = "Kunci Posisi", Default = true }):OnChanged(function() _G.LockPosition = Options.LockPosition.Value end)
 
     -- 🤖 AUTOS
-    local _Autos = _Tabs.Autos
-    _Autos:AddParagraph({ Title = "Jual Item", Content = "Auto jual atau jual di tangan." })
+    local Autos = Tabs.Autos
+    Autos:AddParagraph({ Title = "Jual Item", Content = "Auto jual atau jual di tangan." })
 
-    local _ToggleSellAll = _Autos:AddToggle("AutoSellAll", {Title = "Auto Jual Semua", Default = false })
-    _ToggleSellAll:OnChanged(function() _G.AutoSellAll = _Options.AutoSellAll.Value end)
-    _Autos:AddSlider("SellAllInterval", {Title = "Interval Jual (detik)", Default = 5, Min = 1, Max = 60, Rounding = 1, Callback = function(_V) _G.SellAllInterval = _V end})
+    local ToggleSellAll = Autos:AddToggle("AutoSellAll", {Title = "Auto Jual Semua", Default = false })
+    ToggleSellAll:OnChanged(function() _G.AutoSellAll = Options.AutoSellAll.Value end)
+    Autos:AddSlider("SellAllInterval", {Title = "Interval Jual (detik)", Default = 5, Min = 1, Max = 60, Rounding = 1, Callback = function(V) _G.SellAllInterval = V end})
 
-    _Autos:AddButton({Title = "Jual di Tangan", Callback = function()
-        local _remote = game:GetService("ReplicatedStorage"):WaitForChild(_STR[6]):WaitForChild(_STR[11])
-        if _remote then
-            local _success, _res = pcall(function() return _remote:InvokeServer() end)
-            if _success then 
-                _LogUI.AddLog("💰 Item Terjual", Color3.fromRGB(100, 255, 100)) 
-                _Fluent:Notify({Title="Jual Tangan", Content="Sukses! Hasil: " .. tostring(_res), Duration=3}) 
+    Autos:AddButton({Title = "Jual di Tangan", Callback = function()
+        local remote = game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("Sell")
+        if remote then
+            local success, res = pcall(function() return remote:InvokeServer() end)
+            if success then 
+                LogUI.AddLog("💰 Item Terjual", Color3.fromRGB(100, 255, 100)) 
+                Fluent:Notify({Title="Jual Tangan", Content="Sukses! Hasil: " .. tostring(res), Duration=3}) 
             else 
-                warn("Error Jual Tangan:", _res) 
+                warn("Error Jual Tangan:", res) 
             end
         else
-            _Fluent:Notify({Title="Error", Content="Remote Jual Tidak Ditemukan!", Duration=3})
+            Fluent:Notify({Title="Error", Content="Remote Jual Tidak Ditemukan!", Duration=3})
         end
     end})
 
-    _Autos:AddParagraph({ Title = "---", Content = "" })
+    Autos:AddParagraph({ Title = "---", Content = "" })
 
     -- Smart Auto Totem
-    _Autos:AddParagraph({ Title = "Smart Auto Totem", Content = "Sistem deteksi waktu Server secara Real-time\nAkan berjalan saat pergantian waktu (pagi/malam)" })
+    Autos:AddParagraph({ Title = "Smart Auto Totem", Content = "Sistem deteksi waktu Server secara Real-time\nAkan berjalan saat pergantian waktu (pagi/malam)" })
 
     _G.AutoTotem = false
     _G.DayTotemSelect = "Sundial Totem"
     _G.NightTotemSelect = "Aurora Totem"
 
-    _Autos:AddToggle("EnableAutoTotem", {Title = "Aktifkan Smart Auto Totem", Default = false }):OnChanged(function(_Value) _G.AutoTotem = _Value end)
+    Autos:AddToggle("EnableAutoTotem", {Title = "Aktifkan Smart Auto Totem", Default = false }):OnChanged(function(Value) _G.AutoTotem = Value end)
 
-    _Autos:AddDropdown("DayTotemDrop", {
+    Autos:AddDropdown("DayTotemDrop", {
         Title = "☀️ Totem saat masuk pagi (06:30)", 
-        Values = _Data.TotemList, 
+        Values = Data.TotemList, 
         Multi = false, 
         Default = "Sundial Totem",
-    }):OnChanged(function(_Value) _G.DayTotemSelect = _Value end)
+    }):OnChanged(function(Value) _G.DayTotemSelect = Value end)
 
-    _Autos:AddDropdown("NightTotemDrop", {
+    Autos:AddDropdown("NightTotemDrop", {
         Title = "🌙 Totem saat masuk malam (18:00)", 
-        Values = _Data.TotemList, 
+        Values = Data.TotemList, 
         Multi = false, 
         Default = "Aurora Totem",
-    }):OnChanged(function(_Value) _G.NightTotemSelect = _Value end)
+    }):OnChanged(function(Value) _G.NightTotemSelect = Value end)
 
     -- Auto Potion
-    _Autos:AddParagraph({ Title = "Auto Potion (Timer)", Content = "Sistem minum ramuan dengan timer loop (satuan: menit)" })
+    Autos:AddParagraph({ Title = "Auto Potion (Timer)", Content = "Sistem minum ramuan dengan timer loop (satuan: menit)" })
 
     _G.AutoPotion = false
-    _G.SelectedPotion = _Data.PotionList[1]
+    _G.SelectedPotion = Data.PotionList[1]
     _G.PotionDelayMinutes = 10
     _G.PotionRepeatCount = 999
     _G.PotionTimer = 0
 
-    _Autos:AddToggle("EnableAutoPotion", {Title = "Aktifkan Auto Potion", Default = false }):OnChanged(function(_Value)
-        _G.AutoPotion = _Value
-        if _Value then _G.PotionTimer = 0 end
+    Autos:AddToggle("EnableAutoPotion", {Title = "Aktifkan Auto Potion", Default = false }):OnChanged(function(Value)
+        _G.AutoPotion = Value
+        if Value then _G.PotionTimer = 0 end
     end)
 
-    _Autos:AddDropdown("PotionSelect", {
+    Autos:AddDropdown("PotionSelect", {
         Title = "Pilih Potion",
-        Values = _Data.PotionList,
+        Values = Data.PotionList,
         Multi = false,
         Default = 1,
-    }):OnChanged(function(_Value) _G.SelectedPotion = _Value end)
+    }):OnChanged(function(Value) _G.SelectedPotion = Value end)
 
-    _Autos:AddInput("PotionTimeInput", {
+    Autos:AddInput("PotionTimeInput", {
         Title = "Durasi buff (menit)",
         Default = "16",
         Numeric = true,
-        Callback = function(_Value) _G.PotionDelayMinutes = tonumber(_Value) or 16 end
+        Callback = function(Value) _G.PotionDelayMinutes = tonumber(Value) or 16 end
     })
 
-    _Autos:AddInput("PotionCountInput", {
+    Autos:AddInput("PotionCountInput", {
         Title = "Jumlah pengulangan",
         Default = "999",
         Numeric = true,
-        Callback = function(_Value) _G.PotionRepeatCount = tonumber(_Value) or 999 end
+        Callback = function(Value) _G.PotionRepeatCount = tonumber(Value) or 999 end
     })
 
     -- 🏃 CHARACTER
-    _Tabs.Character:AddToggle("ESPEnabled", {Title = "Aktifkan Player ESP", Default = false }):OnChanged(function() 
-        _G.ESPEnabled = _Options.ESPEnabled.Value 
+    Tabs.Character:AddToggle("ESPEnabled", {Title = "Aktifkan Player ESP", Default = false }):OnChanged(function() 
+        _G.ESPEnabled = Options.ESPEnabled.Value 
     end)
-    _Tabs.Character:AddToggle("WalkSpeedEnabled", {Title = "Aktifkan Walk Speed", Default = false }):OnChanged(function() _G.WalkSpeedEnabled = _Options.WalkSpeedEnabled.Value end)
-    _Tabs.Character:AddInput("WalkSpeedVal", {Title = "Nilai Kecepatan", Default = "16", Numeric = true, Callback = function(_V) _G.WalkSpeed = tonumber(_V) or 16 end})
-    _Tabs.Character:AddToggle("JumpPowerEnabled", {Title = "Aktifkan Jump Power", Default = false }):OnChanged(function() _G.JumpPowerEnabled = _Options.JumpPowerEnabled.Value end)
-    _Tabs.Character:AddInput("JumpPowerVal", {Title = "Nilai Lompat", Default = "50", Numeric = true, Callback = function(_V) _G.JumpPower = tonumber(_V) or 50 end})
-    _Tabs.Character:AddToggle("Noclip", {Title = "Noclip", Default = false }):OnChanged(function() _G.Noclip = _Options.Noclip.Value end)
-    _Tabs.Character:AddToggle("DashEnabled", {Title = "Aktifkan Dash", Default = true }):OnChanged(function() _G.DashEnabled = _Options.DashEnabled.Value end)
-    _Tabs.Character:AddSlider("DashSpeed", {Title = "Kecepatan Dash", Default = 100, Min = 50, Max = 300, Rounding = 0, Callback = function(_V) _G.DashSpeed = _V end})
-    _Tabs.Character:AddToggle("FlyEnabled", {Title = "Aktifkan Fly", Default = true }):OnChanged(function() _G.FlyEnabled = _Options.FlyEnabled.Value end)
-    _Tabs.Character:AddToggle("FlyInertia", {Title = "Inersia Terbang", Default = true }):OnChanged(function() _G.FlyInertia = _Options.FlyInertia.Value end)
-    _Tabs.Character:AddSlider("FlySpeed", {Title = "Kecepatan Terbang", Default = 75, Min = 10, Max = 300, Rounding = 0, Callback = function(_V) _G.FlySpeed = _V end})
+    Tabs.Character:AddToggle("WalkSpeedEnabled", {Title = "Aktifkan Walk Speed", Default = false }):OnChanged(function() _G.WalkSpeedEnabled = Options.WalkSpeedEnabled.Value end)
+    Tabs.Character:AddInput("WalkSpeedVal", {Title = "Nilai Kecepatan", Default = "16", Numeric = true, Callback = function(V) _G.WalkSpeed = tonumber(V) or 16 end})
+    Tabs.Character:AddToggle("JumpPowerEnabled", {Title = "Aktifkan Jump Power", Default = false }):OnChanged(function() _G.JumpPowerEnabled = Options.JumpPowerEnabled.Value end)
+    Tabs.Character:AddInput("JumpPowerVal", {Title = "Nilai Lompat", Default = "50", Numeric = true, Callback = function(V) _G.JumpPower = tonumber(V) or 50 end})
+    Tabs.Character:AddToggle("Noclip", {Title = "Noclip", Default = false }):OnChanged(function() _G.Noclip = Options.Noclip.Value end)
+    Tabs.Character:AddToggle("DashEnabled", {Title = "Aktifkan Dash", Default = true }):OnChanged(function() _G.DashEnabled = Options.DashEnabled.Value end)
+    Tabs.Character:AddSlider("DashSpeed", {Title = "Kecepatan Dash", Default = 100, Min = 50, Max = 300, Rounding = 0, Callback = function(V) _G.DashSpeed = V end})
+    Tabs.Character:AddToggle("FlyEnabled", {Title = "Aktifkan Fly", Default = true }):OnChanged(function() _G.FlyEnabled = Options.FlyEnabled.Value end)
+    Tabs.Character:AddToggle("FlyInertia", {Title = "Inersia Terbang", Default = true }):OnChanged(function() _G.FlyInertia = Options.FlyInertia.Value end)
+    Tabs.Character:AddSlider("FlySpeed", {Title = "Kecepatan Terbang", Default = 75, Min = 10, Max = 300, Rounding = 0, Callback = function(V) _G.FlySpeed = V end})
     
-    _Tabs.Character:AddParagraph({ Title = "Dukungan Mobile", Content = "Alat untuk perangkat mobile" })
+    Tabs.Character:AddParagraph({ Title = "Dukungan Mobile", Content = "Alat untuk perangkat mobile" })
 
-    _Tabs.Character:AddToggle("ShowFlyPanel", {Title = "Tampilkan Panel Fly (Mobile)", Default = false }):OnChanged(function(_Value)
-        _FlyUI.SetVisible(_Value)
+    Tabs.Character:AddToggle("ShowFlyPanel", {Title = "Tampilkan Panel Fly (Mobile)", Default = false }):OnChanged(function(Value)
+        FlyUI.SetVisible(Value)
     end)
 
     -- 🗺️ TELEPORT
-    local _DropdownManager, _DropdownWarp
-    local function _RefreshAllDropdowns()
-        local _saved = _Utils.LoadCustomLocations()
-        local _managerList, _warpList = {}, {}
-        local _mQuery, _wQuery = _G.ManagerSearch:lower(), _G.SearchQuery:lower()
-        for _name, _ in pairs(_saved) do
-            if _mQuery == "" or _name:lower():find(_mQuery) then table.insert(_managerList, _name) end
-            if _wQuery == "" or _name:lower():find(_wQuery) then table.insert(_warpList, _name) end
+    local DropdownManager, DropdownWarp
+    local function RefreshAllDropdowns()
+        local saved = Utils.LoadCustomLocations()
+        local managerList, warpList = {}, {}
+        local mQuery, wQuery = _G.ManagerSearch:lower(), _G.SearchQuery:lower()
+        for name, _ in pairs(saved) do
+            if mQuery == "" or name:lower():find(mQuery) then table.insert(managerList, name) end
+            if wQuery == "" or name:lower():find(wQuery) then table.insert(warpList, name) end
         end
-        for _name, _ in pairs(_Data.DefaultLocations) do
-            if _wQuery == "" or _name:lower():find(_wQuery) then table.insert(_warpList, _name) end
+        for name, _ in pairs(Data.DefaultLocations) do
+            if wQuery == "" or name:lower():find(wQuery) then table.insert(warpList, name) end
         end
-        table.sort(_managerList); table.sort(_warpList)
-        if _DropdownManager then _DropdownManager:SetValues(_managerList) end
-        if _DropdownWarp then _DropdownWarp:SetValues(_warpList) end
+        table.sort(managerList); table.sort(warpList)
+        if DropdownManager then DropdownManager:SetValues(managerList) end
+        if DropdownWarp then DropdownWarp:SetValues(warpList) end
     end
 
-    _Tabs.Teleport:AddButton({Title = "🔄 Refresh Daftar", Callback = function() _RefreshAllDropdowns(); _Fluent:Notify({Title="Teleport", Content="Diperbarui!", Duration=1}) end})
-    _Tabs.Teleport:AddInput("ManagerSearch", {Title = "🔍 Cari Tersimpan", Default = "", Callback = function(_V) _G.ManagerSearch = _V; _RefreshAllDropdowns() end})
+    Tabs.Teleport:AddButton({Title = "🔄 Refresh Daftar", Callback = function() RefreshAllDropdowns(); Fluent:Notify({Title="Teleport", Content="Diperbarui!", Duration=1}) end})
+    Tabs.Teleport:AddInput("ManagerSearch", {Title = "🔍 Cari Tersimpan", Default = "", Callback = function(V) _G.ManagerSearch = V; RefreshAllDropdowns() end})
     
-    _DropdownManager = _Tabs.Teleport:AddDropdown("ManagerSelect", {Title = "📂 Pilih Tersimpan", Values = {}, Multi = false, Default = nil})
-    _DropdownManager:OnChanged(function(_Value)
-        local _saved = _Utils.LoadCustomLocations()
-        if _Value and _saved[_Value] then
-            _G.CustomName = _Value
-            _G.CustomX, _G.CustomY, _G.CustomZ = _saved[_Value].x, _saved[_Value].y, _saved[_Value].z
-            if _Options.LocName then _Options.LocName:SetValue(_Value) end
-            if _Options.InputX then _Options.InputX:SetValue(tostring(_G.CustomX)) end
-            if _Options.InputY then _Options.InputY:SetValue(tostring(_G.CustomY)) end
-            if _Options.InputZ then _Options.InputZ:SetValue(tostring(_G.CustomZ)) end
+    DropdownManager = Tabs.Teleport:AddDropdown("ManagerSelect", {Title = "📂 Pilih Tersimpan", Values = {}, Multi = false, Default = nil})
+    DropdownManager:OnChanged(function(Value)
+        local saved = Utils.LoadCustomLocations()
+        if Value and saved[Value] then
+            _G.CustomName = Value
+            _G.CustomX, _G.CustomY, _G.CustomZ = saved[Value].x, saved[Value].y, saved[Value].z
+            if Options.LocName then Options.LocName:SetValue(Value) end
+            if Options.InputX then Options.InputX:SetValue(tostring(_G.CustomX)) end
+            if Options.InputY then Options.InputY:SetValue(tostring(_G.CustomY)) end
+            if Options.InputZ then Options.InputZ:SetValue(tostring(_G.CustomZ)) end
         end
     end)
     
-    _Tabs.Teleport:AddInput("LocName", {Title = "Nama", Default = "", Callback = function(_V) _G.CustomName = _V end})
-    _Tabs.Teleport:AddInput("InputX", {Title = "X", Default = "0", Numeric = true, Callback = function(_V) _G.CustomX = tonumber(_V) or 0 end})
-    _Tabs.Teleport:AddInput("InputY", {Title = "Y", Default = "135", Numeric = true, Callback = function(_V) _G.CustomY = tonumber(_V) or 135 end})
-    _Tabs.Teleport:AddInput("InputZ", {Title = "Z", Default = "0", Numeric = true, Callback = function(_V) _G.CustomZ = tonumber(_V) or 0 end})
+    Tabs.Teleport:AddInput("LocName", {Title = "Nama", Default = "", Callback = function(V) _G.CustomName = V end})
+    Tabs.Teleport:AddInput("InputX", {Title = "X", Default = "0", Numeric = true, Callback = function(V) _G.CustomX = tonumber(V) or 0 end})
+    Tabs.Teleport:AddInput("InputY", {Title = "Y", Default = "135", Numeric = true, Callback = function(V) _G.CustomY = tonumber(V) or 135 end})
+    Tabs.Teleport:AddInput("InputZ", {Title = "Z", Default = "0", Numeric = true, Callback = function(V) _G.CustomZ = tonumber(V) or 0 end})
     
-    _Tabs.Teleport:AddButton({Title = "📍 Ambil Posisi", Callback = function()
-        local _char = _Services.LocalPlayer.Character
-        if _char and _char:FindFirstChild("HumanoidRootPart") then
-            local _pos = _char.HumanoidRootPart.Position
-            _G.CustomX, _G.CustomY, _G.CustomZ = math.floor(_pos.X), math.floor(_pos.Y), math.floor(_pos.Z)
-            if _Options.InputX then _Options.InputX:SetValue(tostring(_G.CustomX)) end
-            if _Options.InputY then _Options.InputY:SetValue(tostring(_G.CustomY)) end
-            if _Options.InputZ then _Options.InputZ:SetValue(tostring(_G.CustomZ)) end
+    Tabs.Teleport:AddButton({Title = "📍 Ambil Posisi", Callback = function()
+        local char = Services.LocalPlayer.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            local pos = char.HumanoidRootPart.Position
+            _G.CustomX, _G.CustomY, _G.CustomZ = math.floor(pos.X), math.floor(pos.Y), math.floor(pos.Z)
+            if Options.InputX then Options.InputX:SetValue(tostring(_G.CustomX)) end
+            if Options.InputY then Options.InputY:SetValue(tostring(_G.CustomY)) end
+            if Options.InputZ then Options.InputZ:SetValue(tostring(_G.CustomZ)) end
         end
     end})
     
-    _Tabs.Teleport:AddButton({Title = "💾 Simpan", Callback = function()
+    Tabs.Teleport:AddButton({Title = "💾 Simpan", Callback = function()
         if _G.CustomName == "" then return end
-        local _saved = _Utils.LoadCustomLocations()
-        _saved[_G.CustomName] = {x = tonumber(_G.CustomX), y = tonumber(_G.CustomY), z = tonumber(_G.CustomZ)}
-        _Utils.SaveCustomLocations(_saved); _RefreshAllDropdowns()
+        local saved = Utils.LoadCustomLocations()
+        saved[_G.CustomName] = {x = tonumber(_G.CustomX), y = tonumber(_G.CustomY), z = tonumber(_G.CustomZ)}
+        Utils.SaveCustomLocations(saved); RefreshAllDropdowns()
     end})
     
-    _Tabs.Teleport:AddButton({Title = "🚀 Warp ke XYZ", Callback = function()
+    Tabs.Teleport:AddButton({Title = "🚀 Warp ke XYZ", Callback = function()
         if _G.StopAll then return end
-        local _char = _Services.LocalPlayer.Character
-        if _char and _char:FindFirstChild("HumanoidRootPart") then
-            local _tp = CFrame.new(tonumber(_G.CustomX) or 0, tonumber(_G.CustomY) or 135, tonumber(_G.CustomZ) or 0)
-            _char.HumanoidRootPart.CFrame = _tp
+        local char = Services.LocalPlayer.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            local tp = CFrame.new(tonumber(_G.CustomX) or 0, tonumber(_G.CustomY) or 135, tonumber(_G.CustomZ) or 0)
+            char.HumanoidRootPart.CFrame = tp
         end
     end})
     
-    _Tabs.Teleport:AddInput("SearchLoc", {Title = "🔍 Cari Warp", Default = "", Callback = function(_V) _G.SearchQuery = _V; _RefreshAllDropdowns() end})
+    Tabs.Teleport:AddInput("SearchLoc", {Title = "🔍 Cari Warp", Default = "", Callback = function(V) _G.SearchQuery = V; RefreshAllDropdowns() end})
     
-    _DropdownWarp = _Tabs.Teleport:AddDropdown("IslandWarp", {Title = "📂 Pilih Tujuan", Values = {}, Multi = false, Default = nil})
-    _DropdownWarp:OnChanged(function(_Value)
-        if _G.StopAll or not _Value then return end
-        local _target, _saved = _Data.DefaultLocations[_Value], _Utils.LoadCustomLocations()
-        if not _target and _saved[_Value] then _target = _saved[_Value] end
-        if _target then
-            local _char = _Services.LocalPlayer.Character
-            if _char and _char:FindFirstChild("HumanoidRootPart") then
-                local _tp = CFrame.new(_target.x, _target.y, _target.z)
-                _char.HumanoidRootPart.CFrame = _tp
+    DropdownWarp = Tabs.Teleport:AddDropdown("IslandWarp", {Title = "📂 Pilih Tujuan", Values = {}, Multi = false, Default = nil})
+    DropdownWarp:OnChanged(function(Value)
+        if _G.StopAll or not Value then return end
+        local target, saved = Data.DefaultLocations[Value], Utils.LoadCustomLocations()
+        if not target and saved[Value] then target = saved[Value] end
+        if target then
+            local char = Services.LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local tp = CFrame.new(target.x, target.y, target.z)
+                char.HumanoidRootPart.CFrame = tp
             end
         end
     end)
 
     -- Teleport Pemain
-    _Tabs.Teleport:AddParagraph({ Title = "-----------------", Content = "" })
-    _Tabs.Teleport:AddParagraph({ Title = "Teleport Pemain", Content = "Warp ke pemain lain di server" })
+    Tabs.Teleport:AddParagraph({ Title = "-----------------", Content = "" })
+    Tabs.Teleport:AddParagraph({ Title = "Teleport Pemain", Content = "Warp ke pemain lain di server" })
 
-    local _PlayerDropdown = _Tabs.Teleport:AddDropdown("PlayerSelect", {
+    local PlayerDropdown = Tabs.Teleport:AddDropdown("PlayerSelect", {
         Title = "Pilih Pemain (Select Player)",
         Values = {},
         Multi = false,
         Default = nil,
     })
 
-    local function _RefreshPlayerList()
-        local _pList = {}
-        for _, _p in pairs(_Services.Players:GetPlayers()) do
-            if _p ~= _Services.LocalPlayer then
-                table.insert(_pList, _p.Name)
+    local function RefreshPlayerList()
+        local pList = {}
+        for _, p in pairs(Services.Players:GetPlayers()) do
+            if p ~= Services.LocalPlayer then
+                table.insert(pList, p.Name)
             end
         end
-        table.sort(_pList)
-        _PlayerDropdown:SetValues(_pList)
+        table.sort(pList)
+        PlayerDropdown:SetValues(pList)
     end
 
-    _Tabs.Teleport:AddButton({
+    Tabs.Teleport:AddButton({
         Title = "🔄 Refresh Daftar Pemain",
         Description = "Tekan untuk refresh daftar nama",
         Callback = function()
-            _RefreshPlayerList()
-            _Fluent:Notify({Title = "Sistem", Content = "Daftar Pemain Diperbarui!", Duration = 1})
+            RefreshPlayerList()
+            Fluent:Notify({Title = "Sistem", Content = "Daftar Pemain Diperbarui!", Duration = 1})
         end
     })
 
-    _Tabs.Teleport:AddButton({
+    Tabs.Teleport:AddButton({
         Title = "🚀 Warp ke Pemain",
         Description = "Warp ke pemain yang dipilih",
         Callback = function()
-            local _targetName = _Options.PlayerSelect.Value
-            if not _targetName then return end
+            local targetName = Options.PlayerSelect.Value
+            if not targetName then return end
             
-            local _targetPlayer = _Services.Players:FindFirstChild(_targetName)
-            if _targetPlayer and _targetPlayer.Character and _targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                local _char = _Services.LocalPlayer.Character
-                if _char and _char:FindFirstChild("HumanoidRootPart") then
-                    _char.HumanoidRootPart.CFrame = _targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 2, 0)
-                    _Fluent:Notify({Title = "Teleport", Content = "Warp ke: " .. _targetName, Duration = 2})
+            local targetPlayer = Services.Players:FindFirstChild(targetName)
+            if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local char = Services.LocalPlayer.Character
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    char.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 2, 0)
+                    Fluent:Notify({Title = "Teleport", Content = "Warp ke: " .. targetName, Duration = 2})
                 end
             else
-                _Fluent:Notify({Title = "Error", Content = "Tidak dapat menemukan pemain, atau dia sedang mati", Duration = 3})
+                Fluent:Notify({Title = "Error", Content = "Tidak dapat menemukan pemain, atau dia sedang mati", Duration = 3})
             end
         end
     })
 
-    task.delay(1, function() _RefreshPlayerList() end)
+    task.delay(1, function() RefreshPlayerList() end)
 
     -- 🛒 SHOP
-    local _RodNames = {}
-    for _, _v in ipairs(_Data.RodList) do table.insert(_RodNames, _v.Name) end
-    _Tabs.Shop:AddDropdown("SelectedRod", {Title = "Pilih Rod", Values = _RodNames, Multi = false, Default = 1})
-    _Tabs.Shop:AddButton({Title = "Beli Rod", Callback = function() 
-        local _remote = _Utils.GetPurchaseRemote()
-        if _remote then
-            _remote:FireServer(_Options.SelectedRod.Value, "Rod", nil, 1) 
+    local RodNames = {}
+    for _, v in ipairs(Data.RodList) do table.insert(RodNames, v.Name) end
+    Tabs.Shop:AddDropdown("SelectedRod", {Title = "Pilih Rod", Values = RodNames, Multi = false, Default = 1})
+    Tabs.Shop:AddButton({Title = "Beli Rod", Callback = function() 
+        local remote = Utils.GetPurchaseRemote()
+        if remote then
+            remote:FireServer(Options.SelectedRod.Value, "Rod", nil, 1) 
         else
-            _Fluent:Notify({Title = "Error", Content = "Remote pembelian tidak ditemukan", Duration = 3})
+            Fluent:Notify({Title = "Error", Content = "Remote pembelian tidak ditemukan", Duration = 3})
         end
     end})
 
-    _Tabs.Shop:AddDropdown("SelectedTotem", {Title = "Pilih Totem", Values = _Data.TotemList, Multi = false, Default = 1})
-    _Tabs.Shop:AddInput("TotemAmount", {Title = "Jumlah", Default = "1", Numeric = true})
-    _Tabs.Shop:AddButton({Title = "Beli Totem", Callback = function()
-        local _selectedName = _Options.SelectedTotem.Value
-        local _amount = math.clamp(tonumber(_Options.TotemAmount.Value) or 1, 1, 50)
+    Tabs.Shop:AddDropdown("SelectedTotem", {Title = "Pilih Totem", Values = Data.TotemList, Multi = false, Default = 1})
+    Tabs.Shop:AddInput("TotemAmount", {Title = "Jumlah", Default = "1", Numeric = true})
+    Tabs.Shop:AddButton({Title = "Beli Totem", Callback = function()
+        local selectedName = Options.SelectedTotem.Value
+        local amount = math.clamp(tonumber(Options.TotemAmount.Value) or 1, 1, 50)
         
-        local _pricePerItem = 0
-        for _, _v in ipairs(_Data.TotemData) do
-            if _v.Name == _selectedName then _pricePerItem = _v.Price; break end
+        local pricePerItem = 0
+        for _, v in ipairs(Data.TotemData) do
+            if v.Name == selectedName then pricePerItem = v.Price; break end
         end
         
-        local _totalPrice = _pricePerItem * _amount
-        local _currentMoney = _Utils.getMoney()
+        local totalPrice = pricePerItem * amount
+        local currentMoney = Utils.getMoney()
         
-        if _currentMoney >= _totalPrice then
-            local _remote = _Utils.GetPurchaseRemote()
-            if _remote then
-                _remote:FireServer(_selectedName, "Item", nil, _amount)
-                _Fluent:Notify({Title = "Sukses", Content = "Membeli " .. _amount .. " " .. _selectedName, Duration = 3})
+        if currentMoney >= totalPrice then
+            local remote = Utils.GetPurchaseRemote()
+            if remote then
+                remote:FireServer(selectedName, "Item", nil, amount)
+                Fluent:Notify({Title = "Sukses", Content = "Membeli " .. amount .. " " .. selectedName, Duration = 3})
             else
-                _Fluent:Notify({Title = "Error", Content = "Remote pembelian tidak ditemukan", Duration = 3})
+                Fluent:Notify({Title = "Error", Content = "Remote pembelian tidak ditemukan", Duration = 3})
             end
         else
-            _Fluent:Notify({Title = "Gagal", Content = "Uang tidak cukup! Butuh: " .. _totalPrice, Duration = 5})
+            Fluent:Notify({Title = "Gagal", Content = "Uang tidak cukup! Butuh: " .. totalPrice, Duration = 5})
         end
     end})
 
     -- 👁️ VISUALS
-    local _Visuals = _Tabs.Visuals
-    _Visuals:AddParagraph({ Title = "Visibilitas UI", Content = "Pengaturan tampilan/sembunyikan tombol" })
-    _Visuals:AddToggle("HideShakeUI", {Title = "Sembunyikan UI Shake (Mode Siluman)", Default = false }):OnChanged(function() 
-        _G.HideShakeUI = _Options.HideShakeUI.Value 
+    local Visuals = Tabs.Visuals
+    Visuals:AddParagraph({ Title = "Visibilitas UI", Content = "Pengaturan tampilan/sembunyikan tombol" })
+    Visuals:AddToggle("HideShakeUI", {Title = "Sembunyikan UI Shake (Mode Siluman)", Default = false }):OnChanged(function() 
+        _G.HideShakeUI = Options.HideShakeUI.Value 
     end)
 
     -- ⚙️ SETTINGS
-    _Tabs.Settings:AddToggle("AntiAFK", {Title = "Aktifkan Anti AFK", Default = true }):OnChanged(function() _G.AntiAFK = _Options.AntiAFK.Value end)
-    _Tabs.Settings:AddToggle("AlwaysPerfect", {Title = "Selalu Tangkapan Sempurna", Default = true }):OnChanged(function() _G.AlwaysPerfect = _Options.AlwaysPerfect.Value end)
-    _Tabs.Settings:AddToggle("FrozenBar", {Title = "Bar Beku (Visual)", Default = true }):OnChanged(function() _G.FrozenBar = _Options.FrozenBar.Value end)
-    _Tabs.Settings:AddSlider("ReelDelay", {Title = "Delay Setelah Gigit", Default = 2.5, Min = 0.0, Max = 10.0, Rounding = 1, Callback = function(_V) _G.ReelDelay = _V end})
-    _Tabs.Settings:AddSlider("CastDelay", {Title = "Cooldown Setelah Tangkap", Default = 0.5, Min = 0.1, Max = 2.0, Rounding = 1, Callback = function(_V) _G.CastDelay = _V end})
-    _Tabs.Settings:AddButton({Title = "🔄 Rejoin Server", Callback = function() _Services.TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, _Services.LocalPlayer) end})
-    _Tabs.Settings:AddButton({Title = "⏩ Server Hop", Callback = function() _Services.TeleportService:Teleport(game.PlaceId, _Services.LocalPlayer) end})
+    Tabs.Settings:AddToggle("AntiAFK", {Title = "Aktifkan Anti AFK", Default = true }):OnChanged(function() _G.AntiAFK = Options.AntiAFK.Value end)
+    Tabs.Settings:AddToggle("AlwaysPerfect", {Title = "Selalu Tangkapan Sempurna", Default = true }):OnChanged(function() _G.AlwaysPerfect = Options.AlwaysPerfect.Value end)
+    Tabs.Settings:AddToggle("FrozenBar", {Title = "Bar Beku (Visual)", Default = true }):OnChanged(function() _G.FrozenBar = Options.FrozenBar.Value end)
+    Tabs.Settings:AddSlider("ReelDelay", {Title = "Delay Setelah Gigit", Default = 2.5, Min = 0.0, Max = 10.0, Rounding = 1, Callback = function(V) _G.ReelDelay = V end})
+    Tabs.Settings:AddSlider("CastDelay", {Title = "Cooldown Setelah Tangkap", Default = 0.5, Min = 0.1, Max = 2.0, Rounding = 1, Callback = function(V) _G.CastDelay = V end})
+    Tabs.Settings:AddButton({Title = "🔄 Rejoin Server", Callback = function() Services.TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Services.LocalPlayer) end})
+    Tabs.Settings:AddButton({Title = "⏩ Server Hop", Callback = function() Services.TeleportService:Teleport(game.PlaceId, Services.LocalPlayer) end})
     
-    _Tabs.Settings:AddParagraph({ Title = "Panel Log", Content = "Jendela tampilan status operasi" })
-    _Tabs.Settings:AddToggle("ShowLogPanel", {Title = "Tampilkan Panel Log", Default = false }):OnChanged(function(_Value)
-        _LogUI.SetVisible(_Value)
+    Tabs.Settings:AddParagraph({ Title = "Panel Log", Content = "Jendela tampilan status operasi" })
+    Tabs.Settings:AddToggle("ShowLogPanel", {Title = "Tampilkan Panel Log", Default = false }):OnChanged(function(Value)
+        LogUI.SetVisible(Value)
     end)
-    _Tabs.Settings:AddButton({Title = "Hapus Log", Callback = function() _LogUI.ClearLogs() end})
+    Tabs.Settings:AddButton({Title = "Hapus Log", Callback = function() LogUI.ClearLogs() end})
 
     -- Performa & FPS
-    _Tabs.Settings:AddParagraph({ Title = "-----------------", Content = "" })
-    _Tabs.Settings:AddParagraph({ Title = "Performa & FPS", Content = "Alat bantu mengurangi lag dan mengurangi beban perangkat" })
+    Tabs.Settings:AddParagraph({ Title = "-----------------", Content = "" })
+    Tabs.Settings:AddParagraph({ Title = "Performa & FPS", Content = "Alat bantu mengurangi lag dan mengurangi beban perangkat" })
 
-    _Tabs.Settings:AddButton({
+    Tabs.Settings:AddButton({
         Title = "📉 Hapus Tekstur & Efek",
         Description = "Ubah gambar menjadi polos + hapus efek (FPS Boost)",
         Callback = function()
-            local _terrain = workspace:FindFirstChildOfClass("Terrain")
-            if _terrain then
-                _terrain.WaterWaveSize = 0
-                _terrain.WaterWaveSpeed = 0
-                _terrain.WaterReflectance = 0
-                _terrain.WaterTransparency = 0
+            local terrain = workspace:FindFirstChildOfClass("Terrain")
+            if terrain then
+                terrain.WaterWaveSize = 0
+                terrain.WaterWaveSpeed = 0
+                terrain.WaterReflectance = 0
+                terrain.WaterTransparency = 0
             end
 
-            local _lighting = game:GetService("Lighting")
-            _lighting.GlobalShadows = false
-            _lighting.FogEnd = 9e9
-            _lighting.Brightness = 2
+            local lighting = game:GetService("Lighting")
+            lighting.GlobalShadows = false
+            lighting.FogEnd = 9e9
+            lighting.Brightness = 2
             
-            for _, _v in pairs(workspace:GetDescendants()) do
-                if _v:IsA("BasePart") and not _v:IsA("MeshPart") then
-                    _v.Material = Enum.Material.SmoothPlastic
-                    _v.Reflectance = 0
-                elseif _v:IsA("Decal") or _v:IsA("Texture") then
-                    _v:Destroy()
-                elseif _v:IsA("ParticleEmitter") or _v:IsA("Trail") or _v:IsA("Beam") or _v:IsA("Fire") or _v:IsA("Smoke") or _v:IsA("Sparkles") then
-                    _v.Enabled = false
+            for _, v in pairs(workspace:GetDescendants()) do
+                if v:IsA("BasePart") and not v:IsA("MeshPart") then
+                    v.Material = Enum.Material.SmoothPlastic
+                    v.Reflectance = 0
+                elseif v:IsA("Decal") or v:IsA("Texture") then
+                    v:Destroy()
+                elseif v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Beam") or v:IsA("Fire") or v:IsA("Smoke") or v:IsA("Sparkles") then
+                    v.Enabled = false
                 end
             end
             
-            _Fluent:Notify({Title = "FPS Boost", Content = "Tekstur & Efek Dihapus!", Duration = 3})
+            Fluent:Notify({Title = "FPS Boost", Content = "Tekstur & Efek Dihapus!", Duration = 3})
         end
     })
 
-    _Tabs.Settings:AddToggle("FullBright", {Title = "☀️ Full Bright (Tanpa Kabut)", Default = false }):OnChanged(function(_Value)
-        if _Value then
+    Tabs.Settings:AddToggle("FullBright", {Title = "☀️ Full Bright (Tanpa Kabut)", Default = false }):OnChanged(function(Value)
+        if Value then
             game:GetService("Lighting").Brightness = 2
             game:GetService("Lighting").ClockTime = 14
             game:GetService("Lighting").FogEnd = 100000
@@ -1875,107 +1739,107 @@ function _TabSetup.SetupAllTabs(_UI, _Data, _Utils)
         end
     end)
 
-    _Tabs.Settings:AddToggle("SuperLowMode", {Title = "⚫ Nonaktifkan Render 3D (Super AFK)", Default = false }):OnChanged(function(_Value)
-        _Services.RunService:Set3dRenderingEnabled(not _Value)
-        if _Value then
-            _Fluent:Notify({Title = "Mode AFK", Content = "Tampilan 3D dimatikan (hemat GPU)", Duration = 3})
+    Tabs.Settings:AddToggle("SuperLowMode", {Title = "⚫ Nonaktifkan Render 3D (Super AFK)", Default = false }):OnChanged(function(Value)
+        Services.RunService:Set3dRenderingEnabled(not Value)
+        if Value then
+            Fluent:Notify({Title = "Mode AFK", Content = "Tampilan 3D dimatikan (hemat GPU)", Duration = 3})
         else
-            _Fluent:Notify({Title = "Mode AFK", Content = "Kembali ke mode normal", Duration = 3})
+            Fluent:Notify({Title = "Mode AFK", Content = "Kembali ke mode normal", Duration = 3})
         end
     end)
 
-    _Tabs.Settings:AddInput("FPSCap", {
+    Tabs.Settings:AddInput("FPSCap", {
         Title = "🔒 Batas FPS Maksimum",
         Default = "60",
         Numeric = true,
-        Callback = function(_Value)
-            setfpscap(tonumber(_Value) or 60)
+        Callback = function(Value)
+            setfpscap(tonumber(Value) or 60)
         end
     })
 
     -- ℹ️ TAB INFO SERVER
-    local _InfoTab = _Tabs.ServerInfo
+    local InfoTab = Tabs.ServerInfo
 
-    _InfoTab:AddToggle("ShowInfoPanel", {Title = "Tampilkan Panel Info Overlay", Default = true }):OnChanged(function(_Value)
-        _InfoUI.SetVisible(_Value)
+    InfoTab:AddToggle("ShowInfoPanel", {Title = "Tampilkan Panel Info Overlay", Default = true }):OnChanged(function(Value)
+        InfoUI.SetVisible(Value)
     end)
 
-    _InfoTab:AddParagraph({ Title = "---", Content = "" })
+    InfoTab:AddParagraph({ Title = "---", Content = "" })
 
-    local _RealTimePara = _InfoTab:AddParagraph({ Title = "🕒 Waktu Nyata (Real Time)", Content = "Memuat..." })
-    local _GameTimePara = _InfoTab:AddParagraph({ Title = "☀️ Waktu Game (Game Time)", Content = "Memuat..." })
-    local _UptimePara = _InfoTab:AddParagraph({ Title = "⏳ Server Sudah Berjalan (Server Uptime)", Content = "Memuat..." })
+    local RealTimePara = InfoTab:AddParagraph({ Title = "🕒 Waktu Nyata (Real Time)", Content = "Memuat..." })
+    local GameTimePara = InfoTab:AddParagraph({ Title = "☀️ Waktu Game (Game Time)", Content = "Memuat..." })
+    local UptimePara = InfoTab:AddParagraph({ Title = "⏳ Server Sudah Berjalan (Server Uptime)", Content = "Memuat..." })
 
     -- Loop Update
     task.spawn(function()
         while true do
             -- Waktu Nyata
-            local _statusTime = os.date("%H:%M:%S")
+            local statusTime = os.date("%H:%M:%S")
             
             -- Waktu Game
-            local _clockTime = game:GetService("Lighting").ClockTime
-            local _timeState = (_clockTime >= 6 and _clockTime < 18) and "Siang ☀️" or "Malam 🌙"
-            local _gameTimeStr = _Utils.FormatGameTime(_clockTime) .. " " .. _timeState
+            local clockTime = game:GetService("Lighting").ClockTime
+            local timeState = (clockTime >= 6 and clockTime < 18) and "Siang ☀️" or "Malam 🌙"
+            local gameTimeStr = Utils.FormatGameTime(clockTime) .. " " .. timeState
 
             -- Uptime Server
-            local _serverTime = workspace.DistributedGameTime
-            local _uptimeStr = _Utils.FormatTime(_serverTime)
+            local serverTime = workspace.DistributedGameTime
+            local uptimeStr = Utils.FormatTime(serverTime)
 
             -- Update Paragraph
-            if _RealTimePara then _RealTimePara:SetDesc(_statusTime) end
-            if _GameTimePara then _GameTimePara:SetDesc(_gameTimeStr) end
-            if _UptimePara then _UptimePara:SetDesc(_uptimeStr) end
+            if RealTimePara then RealTimePara:SetDesc(statusTime) end
+            if GameTimePara then GameTimePara:SetDesc(gameTimeStr) end
+            if UptimePara then UptimePara:SetDesc(uptimeStr) end
 
             -- Update Info UI
-            _InfoUI.Update(_Utils.FormatTime, _Utils.FormatGameTime)
+            InfoUI.Update(Utils.FormatTime, Utils.FormatGameTime)
 
             task.wait(1)
         end
     end)
 
     -- Penyiapan SaveManager
-    _UI.SaveManager:SetLibrary(_Fluent)
-    _UI.InterfaceManager:SetLibrary(_Fluent)
-    _UI.SaveManager:IgnoreThemeSettings()
-    _UI.InterfaceManager:BuildInterfaceSection(_Tabs.Settings)
-    _UI.Window:SelectTab(1)
-    _UI.SaveManager:LoadAutoloadConfig()
+    UI.SaveManager:SetLibrary(Fluent)
+    UI.InterfaceManager:SetLibrary(Fluent)
+    UI.SaveManager:IgnoreThemeSettings()
+    UI.InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+    UI.Window:SelectTab(1)
+    UI.SaveManager:LoadAutoloadConfig()
     
-    _RefreshAllDropdowns()
+    RefreshAllDropdowns()
 end
 
 -- ============================================
 -- MAIN EXECUTION - Menjalankan Semua Modul
 -- ============================================
 
-local function _Main()
+local function Main()
     -- Buat UI
-    _LogUI.Create()
-    _InfoUI.Create()
-    _FlyUI.Create()
+    LogUI.Create()
+    InfoUI.Create()
+    FlyUI.Create()
     
-    local _UI = _MainUI.Create()
-    if not _UI then return end
+    local UI = MainUI.Create()
+    if not UI then return end
     
-    if _Services.IsMobile then
-        _MainUI.CreateMobileUI()
+    if Services.IsMobile then
+        MainUI.CreateMobileUI()
     end
     
     -- Setup Tabs
-    _TabSetup.SetupAllTabs(_UI, _Data, _Utils)
+    TabSetup.SetupAllTabs(UI, Data, Utils)
     
     -- Jalankan Modul
-    _AutoFish.SetupShakeDetection()
-    _AutoFish.Start()
-    _AutoPotion.Start()
-    _AutoSell.Start()
-    _AutoTotem.Start()
-    _Character.Start()
+    AutoFish.SetupShakeDetection()
+    AutoFish.Start()
+    AutoPotion.Start()
+    AutoSell.Start()
+    AutoTotem.Start()
+    Character.Start()
     
     -- Log Startup
     _G.AddLog("✅ TESTING berhasil dimuat!", Color3.fromRGB(0, 255, 100))
-    _UI.Fluent:Notify({Title = "TESTING", Content = "Script berhasil dimuat!", Duration = 5})
+    UI.Fluent:Notify({Title = "TESTING", Content = "Script berhasil dimuat!", Duration = 5})
 end
 
 -- Jalankan Main
-_Main()
+Main()
