@@ -14,7 +14,7 @@
 -- PASTE URL RAW GITHUB ANDA DI SINI
 -- ═══════════════════════════════════════════════════════════════
 
-local URL = "https://raw.githubusercontent.com/USERNAME/fisch-script/main/script.lua"
+local URL = "https://raw.githubusercontent.com/dwisetyabudi15581/testing/refs/heads/main/fisch.lua"
 
 -- ═══════════════════════════════════════════════════════════════
 -- JANGAN UBAH KODE DI BAWAH INI
