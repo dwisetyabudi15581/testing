@@ -46,8 +46,7 @@ end
 
 -- Create Window
 local Window = Library:CreateWindow({
-    Title = "SurviveLava For Brainrots | Indonesia",
-    Footer = "By Faresv2 | Valincia UI",
+    Title = "pornhub",
     Size = UDim2.new(0, 580, 0, 450),
     Center = true,
     AutoShow = true,
@@ -60,23 +59,6 @@ local TabUtama = Window:AddTab("Utama")
 -- Group: VIP & Gerakan
 local GroupVIP = TabUtama:AddGroupbox("VIP & Pengaturan")
 local GroupGerakan = TabUtama:AddGroupbox("Gerakan Karakter")
-
--- Free VIP Toggle
-GroupVIP:AddToggle("FreeVIP", {
-    Text = "Gratis VIP",
-    Default = false,
-    Callback = function(state)
-        if state then
-            for _, v in pairs(workspace:GetDescendants()) do
-                if v.Name == "VIPDoors" or v.Name == "VIPDoor" then
-                    pcall(function()
-                        v:Destroy()
-                    end)
-                end
-            end
-        end
-    end
-})
 
 -- Infinite Jump Toggle
 GroupGerakan:AddToggle("InfiniteJump", {
