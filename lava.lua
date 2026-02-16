@@ -1,9 +1,3 @@
---[[
-    SurviveLava For Brainrots | Versi Indonesia
-    Script oleh: Faresv2
-    Diterjemahkan dan diupdate UI Library
-]]
-
 -- Load UI Library
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/valinciaeunha/valincia-ui-rblx/refs/heads/main/Library.lua"))()
 
@@ -156,14 +150,6 @@ GroupGerakan:AddSlider("WalkSpeed", {
     Suffix = " WS",
     Callback = function(val)
         speedValue = val
-    end
-})
-
--- Fly Button
-GroupGerakan:AddButton({
-    Text = "Terbang (Fly)",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ook314745-svg/fly/refs/heads/main/fly"))()
     end
 })
 
@@ -486,11 +472,7 @@ GroupGodly:AddToggle("AutoGetGodly", {
 local TabInfo = Window:AddTab("Info")
 local GroupInfo = TabInfo:AddGroupbox("Informasi Script")
 
-GroupInfo:AddLabel("SurviveLava For Brainrots")
-GroupInfo:AddLabel("Versi Indonesia")
-GroupInfo:AddLabel("-------------------")
-GroupInfo:AddLabel("Script Asli: Faresv2")
-GroupInfo:AddLabel("UI Library: Valincia")
+GroupInfo:AddLabel("pornhub")
 GroupInfo:AddLabel("-------------------")
 GroupInfo:AddLabel("Tekan Right Ctrl untuk toggle UI")
 GroupInfo:AddLabel("-------------------")
